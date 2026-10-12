@@ -1,0 +1,13 @@
+{
+  "name": "the-countdown-ad",
+  "private": true,
+  "type": "module",
+  "description": "Spot verticale 9:16 di The Countdown: render deterministico con Playwright, motion blur 8x e audio sintetizzato.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "ffmpeg-static": "5.2.0",
+    "playwright-core": "1.64.0"
+  }
+}

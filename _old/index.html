@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#11110f" />
+  <meta name="description" content="The Countdown — dai una forma al tempo che ti separa dai momenti che contano." />
+  <title>The Countdown — Il tempo, in attesa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="film-grain" aria-hidden="true"></div>
+  <header class="topbar wrap">
+    <a class="brand" href="#top" aria-label="The Countdown, inizio"><span class="brand-glyph" aria-hidden="true"><i></i><i></i><i></i></span><span>the<span>countdown</span></span></a>
+    <nav class="main-nav" aria-label="Navigazione principale"><a href="#movies">In arrivo</a><a href="#collection">La tua collezione</a><a href="#about">Il progetto</a></nav>
+    <div class="top-actions"><button class="icon-button" id="theme-toggle" type="button" aria-label="Attiva tema chiaro" title="Cambia tema"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.8"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></button><button class="icon-button search-trigger" id="search-trigger" type="button" aria-label="Cerca un momento" title="Cerca · Ctrl K"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m16 16 4.5 4.5"/></svg></button><button class="button button-acid button-small" id="open-create"><span>＋</span> Nuovo countdown</button></div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-backdrop" id="hero-backdrop" aria-hidden="true"></div><div class="hero-wash" aria-hidden="true"></div><div class="hero-scanline" aria-hidden="true"></div>
+      <div class="hero-inner wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-index">01</span><span class="eyebrow-line"></span><span>IL TEMPO, IN SCENA</span></div>
+          <h1 id="hero-title">Ogni attesa<br>ha il suo <em>momento.</em></h1>
+          <p class="hero-intro">Dai una forma al tempo che ti separa da quello che aspetti. Un conto alla rovescia alla volta.</p>
+          <div class="hero-cta"><a class="button button-acid" href="#collection">La tua collezione <span>↘</span></a><button class="button button-quiet" id="hero-create">Crea un momento <span>＋</span></button></div>
+          <article class="hero-countdown" aria-label="Countdown in evidenza">
+            <div class="hero-countdown-top"><span><i class="live-dot"></i><span id="hero-kicker">IN ARRIVO · IL PROSSIMO CAPITOLO</span></span><span class="hero-event-date" id="hero-event-date">—</span></div>
+            <div class="hero-countdown-main"><div class="hero-event-copy"><span class="hero-event-category" id="hero-category">MOMENTO IN EVIDENZA</span><h2 id="hero-event-title">Il prossimo grande momento</h2><p id="hero-event-description">Una nuova storia sta per cominciare.</p></div>
+              <div class="hero-timer" id="hero-timer" data-date="2027-01-01T00:00:00"><div><strong data-unit="days">000</strong><span>GIORNI</span></div><i>:</i><div><strong data-unit="hours">00</strong><span>ORE</span></div><i>:</i><div><strong data-unit="minutes">00</strong><span>MIN</span></div><i>:</i><div><strong data-unit="seconds">00</strong><span>SEC</span></div></div>
+            </div>
+            <div class="hero-progress"><span id="hero-progress"></span></div>
+          </article>
+        </div>
+        <div class="hero-visual" aria-label="Locandina del prossimo film in arrivo">
+          <div class="visual-orbit orbit-a"></div><div class="visual-orbit orbit-b"></div><div class="visual-orbit orbit-c"></div>
+          <div class="visual-crosshair crosshair-a"></div><div class="visual-crosshair crosshair-b"></div>
+          <div class="poster-halo"></div><figure class="poster-frame"><img id="hero-poster" alt="" /><div class="poster-placeholder" id="poster-placeholder"><span>THE<br>NEXT<br>SCENE</span><i>TC · 001</i></div><div class="poster-gradient"></div><figcaption><span id="poster-meta">A MOMENT IN TIME</span><b id="poster-year">2026</b></figcaption></figure>
+          <div class="floating-ticket"><span class="ticket-label">THE COUNTDOWN CLUB</span><strong id="ticket-day">—</strong><span class="ticket-date" id="ticket-month">NEXT PREMIERE</span><span class="ticket-stub">ADMIT ONE <i>✳</i></span></div>
+          <span class="visual-coordinate coordinate-a">TIME / ALWAYS NOW</span><span class="visual-coordinate coordinate-b">A MOMENT, HELD IN TIME</span>
+        </div>
+      </div>
+      <div class="hero-bottom wrap"><span>SCORRI PER SCOPRIRE</span><span class="scroll-indicator"><i></i></span><span>01 — 04</span></div>
+      <div class="vertical-index" aria-hidden="true">TC / 2026</div>
+    </section>
+
+    <div class="ticker" aria-label="Il tempo continua"><div class="ticker-track"><span>EVERY SECOND MATTERS</span><b>✳</b><span>IL TEMPO È TUO</span><b>✳</b><span>EVERY SECOND MATTERS</span><b>✳</b><span>IL TEMPO È TUO</span><b>✳</b><span>EVERY SECOND MATTERS</span><b>✳</b><span>IL TEMPO È TUO</span><b>✳</b></div></div>
+
+    <section class="movie-section wrap" id="movies" aria-labelledby="movies-title">
+      <div class="section-heading"><div><div class="eyebrow"><span class="eyebrow-index">02</span><span class="eyebrow-line"></span><span>PROSSIMAMENTE, AL CINEMA</span></div><h2 id="movies-title">Le prossime <em>prime.</em></h2><p class="section-lede">Storie che aspettano solo una data. Scegline una e falla tua.</p></div><div class="movie-heading-actions"><span class="live-source"><i></i> <span id="source-status">DATI LIVE</span></span><a class="arrow-link" href="#collection">Vedi la collezione <span>↘</span></a></div></div>
+      <div class="movie-toolbar"><div class="movie-tabs" role="group" aria-label="Filtra film"><button class="movie-tab active" data-movie-filter="upcoming">In arrivo</button><button class="movie-tab" data-movie-filter="popular">Più attesi</button><button class="movie-tab" data-movie-filter="search">Cerca film</button></div><label class="movie-search" id="movie-search-wrap" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m16 16 4.5 4.5"/></svg><input id="movie-search" type="search" placeholder="Titolo del film…" aria-label="Cerca un film" /></label><div class="shelf-controls"><button class="icon-button shelf-prev" aria-label="Film precedenti">←</button><button class="icon-button shelf-next" aria-label="Film successivi">→</button></div></div>
+      <div class="movie-shelf" id="movie-shelf" aria-live="polite"><div class="loading-state"><span class="spinner"></span> Sto cercando le prossime storie…</div></div>
+      <p class="api-note" id="movie-note" hidden></p>
+    </section>
+
+    <section class="collection-section" id="collection" aria-labelledby="collection-title"><div class="wrap">
+      <div class="collection-top"><div><div class="eyebrow"><span class="eyebrow-index">03</span><span class="eyebrow-line"></span><span>I TUOI MOMENTI</span></div><h2 id="collection-title">Tieni vicino<br>ciò che <em>aspetti.</em></h2></div><div class="collection-top-right"><p>Film, partenze, nuovi inizi. Ogni data ha una storia.</p><button class="button button-acid" id="collection-create"><span>＋</span> Aggiungi un momento</button></div></div>
+      <div class="collection-tools"><div class="collection-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m16 16 4.5 4.5"/></svg><input id="event-search" type="search" placeholder="Cerca nella tua collezione…" aria-label="Cerca nella tua collezione" /><kbd>⌘ K</kbd></div>
+        <div class="category-filters" role="group" aria-label="Filtra momenti per categoria"><button class="category-chip active" data-filter="Tutti">Tutti <span data-count="Tutti">0</span></button><button class="category-chip" data-filter="Cinema">Cinema <span data-count="Cinema">0</span></button><button class="category-chip" data-filter="Cultura">Cultura <span data-count="Cultura">0</span></button><button class="category-chip" data-filter="Gaming">Gaming <span data-count="Gaming">0</span></button><button class="category-chip" data-filter="Personale">Personale <span data-count="Personale">0</span></button><button class="category-chip" data-filter="Natura">Natura <span data-count="Natura">0</span></button><button class="category-chip" data-filter="Preferiti">♡ Preferiti</button></div>
+        <div class="collection-view-controls"><label class="sort-label"><span>ORDINA</span><select id="sort-events" aria-label="Ordina eventi"><option value="date">Più vicini</option><option value="created">Aggiunti di recente</option><option value="title">Nome</option></select></label><div class="view-switch" role="group" aria-label="Visualizzazione"><button class="view-button active" data-view="grid" aria-label="Vista griglia" title="Griglia"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button><button class="view-button" data-view="list" aria-label="Vista elenco" title="Elenco"><svg viewBox="0 0 24 24"><path d="M8 5h13M8 12h13M8 19h13M3 5h.01M3 12h.01M3 19h.01"/></svg></button><button class="view-button" data-view="calendar" aria-label="Vista calendario" title="Calendario"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></button></div></div>
+      </div>
+      <div class="collection-status"><span id="collection-count">0 momenti</span><div class="collection-utilities"><button class="utility-link" id="export-events">Esporta ↗</button><button class="utility-link" id="import-trigger">Importa ↙</button><input id="import-file" type="file" accept=".json,application/json" hidden /><button class="utility-link" id="history-toggle">Archivio <span id="history-arrow">＋</span></button></div></div>
+      <div class="event-grid" id="event-grid" aria-live="polite"></div><div class="calendar-panel" id="calendar-view" hidden></div><div class="empty-state" id="empty-state" hidden><div class="empty-orbit" aria-hidden="true">◷</div><h3 id="empty-title">La prossima attesa comincia qui.</h3><p id="empty-copy">Crea un countdown, oppure aggiungi un film dalla sezione qui sopra.</p><button class="button button-acid" id="empty-create">Crea il primo momento <span>＋</span></button></div>
+      <div class="archived-section" id="archived-section" hidden><div class="archive-heading"><span>IL TEMPO GIÀ VISSUTO</span><span class="eyebrow-line"></span></div><div class="event-grid archived-grid" id="archived-grid"></div></div>
+    </div></section>
+
+    <section class="manifesto wrap" id="about"><div class="manifesto-art" aria-hidden="true"><div class="manifesto-ring ring-one"></div><div class="manifesto-ring ring-two"></div><div class="manifesto-ring ring-three"></div><div class="manifesto-sun"></div><span>NOW</span></div><div class="manifesto-copy"><div class="eyebrow"><span class="eyebrow-index">04</span><span class="eyebrow-line"></span><span>UNA PICCOLA IDEA</span></div><p class="manifesto-title">Il futuro non è lontano.<br>È fatto di <em>adesso.</em></p><p class="manifesto-body">Non possiamo fermare il tempo. Possiamo scegliere a cosa prestare attenzione mentre passa.</p><a class="arrow-link" href="#top">Torna all’inizio <span>↑</span></a></div></section>
+  </main>
+
+  <footer class="footer"><div class="wrap footer-main"><a class="brand" href="#top"><span class="brand-glyph" aria-hidden="true"><i></i><i></i><i></i></span><span>the<span>countdown</span></span></a><p>PER I MOMENTI CHE CONTANO.</p><button class="footer-link" id="credits-open">Crediti & note</button><a class="footer-link" href="#top">SU, DI NUOVO ↑</a></div><div class="wrap footer-legal"><span>© 2026 THE COUNTDOWN · FATTO PER IL TEMPO CHE VIENE</span><span>PROGETTATO CON UN PO’ DI ATTESA.</span></div></footer>
+
+  <dialog class="modal" id="create-dialog" aria-labelledby="create-title"><form id="create-form"><button class="modal-close" type="button" aria-label="Chiudi">×</button><div class="eyebrow"><span class="eyebrow-index">NUOVO</span><span class="eyebrow-line"></span><span>DA QUI IN POI</span></div><h2 id="create-title">C’è qualcosa<br>da <em>aspettare.</em></h2><p class="modal-lede">Dagli un nome. Il tempo farà il resto.</p><label class="field">IL NOME DEL MOMENTO<input name="title" required maxlength="54" placeholder="Es. Il viaggio a Lisbona" autocomplete="off" /></label><label class="field">UNA NOTA, SE TI VA<input name="description" maxlength="120" placeholder="Perché questo momento conta?" /></label><div class="form-row"><label class="field">DATA E ORA<input name="date" type="datetime-local" required /></label><label class="field">CATEGORIA<select name="category"><option>Personale</option><option>Cultura</option><option>Gaming</option><option>Natura</option><option>Cinema</option></select></label></div><div class="form-row"><label class="field">SI RIPETE?<select name="repeat"><option value="none">Una volta sola</option><option value="yearly">Ogni anno</option></select></label><label class="field">ATMOSFERA<select name="art"><option value="moon">Notte blu</option><option value="dawn">Alba rosa</option><option value="forest">Verde bosco</option><option value="ember">Luce ambrata</option><option value="film">Pellicola</option></select></label></div><label class="field">COPERTINA PERSONALE <span class="field-optional">· OPZIONALE, MAX 600 KB</span><input name="cover" type="file" accept="image/png,image/jpeg,image/webp" /></label><label class="check-row"><input name="reminder" type="checkbox" /><span class="custom-check"></span><span>Avvisami quando manca un giorno <small>Il promemoria funziona quando la pagina è aperta.</small></span></label><label class="check-row"><input name="sound" type="checkbox" /><span class="custom-check"></span><span>Un piccolo suono quando arriva il momento <small>Solo se la pagina è aperta e l’audio è attivato.</small></span></label><button class="button button-acid submit-button" type="submit">Avvia il countdown <span>↗</span></button></form></dialog>
+
+  <dialog class="modal detail-modal" id="detail-dialog" aria-labelledby="detail-title"><button class="modal-close" type="button" aria-label="Chiudi">×</button><div id="detail-content"></div></dialog>
+  <dialog class="modal credits-modal" id="credits-dialog" aria-labelledby="credits-title"><button class="modal-close" type="button" aria-label="Chiudi">×</button><div class="eyebrow"><span class="eyebrow-index">NOTE</span><span class="eyebrow-line"></span><span>FONTI & CREDITI</span></div><h2 id="credits-title">Le storie<br>hanno <em>fonti.</em></h2><p>I titoli, le date e le immagini cinematografiche sono forniti da The Movie Database (TMDB). La data di uscita può variare per paese e nel tempo.</p><p class="tmdb-disclaimer">Questo prodotto utilizza l’API di TMDB, ma non è approvato né certificato da TMDB.<br><span lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</span></p><a class="tmdb-logo-link" href="https://www.themoviedb.org/" target="_blank" rel="noreferrer"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" alt="The Movie Database (TMDB)" /><span>Visita TMDB ↗</span></a></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

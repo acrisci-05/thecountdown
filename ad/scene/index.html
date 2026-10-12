@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <title>The Countdown · spot 9:16</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400&family=Inter:wght@400;500;600&family=Sora:wght@300;400;500;600;700&display=block" rel="stylesheet" />
+  <link rel="stylesheet" href="scene.css" />
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-film" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M7.5 4.5v15M16.5 4.5v15M3.5 9h4M3.5 15h4M16.5 9h4M16.5 15h4"/></symbol>
+      <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
+      <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0V4ZM8 6H4.5a3 3 0 0 0 3.6 4M16 6h3.5a3 3 0 0 1-3.6 4M12 13v4M8 21h8M9.5 17h5"/></symbol>
+      <symbol id="i-gamepad" viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 4 4.4l-.5 4a2.7 2.7 0 0 1-4.7 1.4L14 16h-4l-1.8 1.8a2.7 2.7 0 0 1-4.7-1.4l-.5-4A4 4 0 0 1 7 8Z"/><path d="M7.5 11v3M6 12.5h3M15.5 12h.01M17.5 13.5h.01"/></symbol>
+      <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3c.8 4.6 2.4 6.2 7 7-4.6.8-6.2 2.4-7 7-.8-4.6-2.4-6.2-7-7 4.6-.8 6.2-2.4 7-7Z"/></symbol>
+      <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 13.5 3 11l1.5-1.5 8 1L17 6a2 2 0 0 1 3 3l-4.5 4.5 1 8L15 23l-2.5-7.5-3.5 3.5v2.5L7.5 23l-1-4-4-1L4 16.5h2.5l4-3Z"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5Z"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+      <symbol id="i-user-off" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.5-5.5 7-5.5s6.2 1.9 7 5.5M3 3l18 18"/></symbol>
+    </defs>
+  </svg>
+
+  <div id="stage">
+    <!-- Fondale: pianeta, orbita, stelle (comune a tutte le scene) -->
+    <div class="bg">
+      <div class="bg-glow" id="bg-glow"></div>
+      <svg class="bg-svg" viewBox="0 0 1080 1920">
+        <defs>
+          <radialGradient id="g-planet" cx="70%" cy="20%" r="95%">
+            <stop offset="0" stop-color="#ff3b47" stop-opacity=".42"/>
+            <stop offset=".24" stop-color="#1a0b0e" stop-opacity=".96"/>
+            <stop offset=".65" stop-color="#050507"/>
+            <stop offset="1" stop-color="#020203"/>
+          </radialGradient>
+          <linearGradient id="g-rim" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff3b47" stop-opacity="0"/>
+            <stop offset=".35" stop-color="#ff3b47" stop-opacity=".95"/>
+            <stop offset=".55" stop-color="#ffffff"/>
+            <stop offset=".78" stop-color="#ff3b47" stop-opacity=".7"/>
+            <stop offset="1" stop-color="#ff3b47" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="f-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="18"/></filter>
+          <filter id="f-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+        </defs>
+        <g id="stars"></g>
+        <g id="planet">
+          <circle cx="540" cy="760" r="452" fill="none" stroke="#ff3b47" stroke-opacity=".45" stroke-width="26" filter="url(#f-glow)"/>
+          <circle cx="540" cy="760" r="440" fill="url(#g-planet)"/>
+          <circle id="rim" cx="540" cy="760" r="440" fill="none" stroke="url(#g-rim)" stroke-width="4" pathLength="100" transform="rotate(-90 540 760)"/>
+          <circle cx="540" cy="760" r="441" fill="none" stroke="url(#g-rim)" stroke-width="12" filter="url(#f-soft)" opacity=".6"/>
+        </g>
+        <g id="orbit" transform="rotate(-10 540 760)">
+          <ellipse cx="540" cy="760" rx="520" ry="150" fill="none" stroke="#ff3b47" stroke-opacity=".25" stroke-dasharray="2 10"/>
+          <circle id="orbit-glow" r="16" fill="#ff3b47" opacity=".45" filter="url(#f-soft)"/>
+          <circle id="orbit-dot" r="5.5" fill="#fff"/>
+        </g>
+      </svg>
+      <div class="vignette"></div>
+    </div>
+
+    <div class="brand" id="brand"><svg class="logo" viewBox="0 0 40 40"><circle class="lg-track" cx="20" cy="20" r="15.5"/><circle class="lg-sweep" cx="20" cy="20" r="15.5"/><g class="lg-sat"><circle cx="20" cy="4.5" r="2.25"/></g><path class="lg-hand" d="M20 20V10.5"/><path class="lg-min" d="M20 20l6 3.5"/><circle class="lg-hub" cx="20" cy="20" r="2.2"/></svg><span>THE COUNTDOWN</span></div>
+
+    <!-- 1 · HOOK -->
+    <section class="scene" id="hook">
+      <p class="eyebrow" id="hook-eyebrow">FILM · CONCERTI · PARTITE · USCITE</p>
+      <h1 class="hook-title">
+        <span class="line"><span id="h1a">QUANTO</span></span>
+        <span class="line"><span id="h1b" class="red">MANCA?</span></span>
+      </h1>
+      <div class="pills">
+        <span class="pill" id="pill-1" style="--c:#ff4d4f"><svg><use href="#i-film"/></svg>Il film</span>
+        <span class="pill" id="pill-2" style="--c:#d36bff"><svg><use href="#i-music"/></svg>Il concerto</span>
+        <span class="pill" id="pill-3" style="--c:#2fd27a"><svg><use href="#i-trophy"/></svg>La partita</span>
+      </div>
+    </section>
+
+    <!-- 2 · SHOWCASE -->
+    <section class="scene" id="show">
+      <div class="persp">
+        <div class="panel" id="panel">
+          <div class="panel-top"><svg class="logo sm" viewBox="0 0 40 40"><circle class="lg-track" cx="20" cy="20" r="15.5"/><circle class="lg-sweep" cx="20" cy="20" r="15.5"/><g class="lg-sat"><circle cx="20" cy="4.5" r="2.25"/></g><path class="lg-hand" d="M20 20V10.5"/><path class="lg-min" d="M20 20l6 3.5"/><circle class="lg-hub" cx="20" cy="20" r="2.2"/></svg><span>THE COUNTDOWN</span><span class="dots"><i></i><i></i><i></i></span></div>
+          <div class="hero-mini">
+            <div class="hero-art"></div>
+            <p class="kicker"><span class="dot"></span>PROSSIMO EVENTO · FILM</p>
+            <h2>IL FILM DELL’ANNO</h2>
+            <div class="ft">
+              <div class="ft-days"><span class="num" id="d-days"></span><span class="lbl">GIORNI</span></div>
+              <div class="ft-rest">
+                <div><span class="num" id="d-h"></span><span class="lbl">ORE</span></div>
+                <div><span class="num" id="d-m"></span><span class="lbl">MIN</span></div>
+                <div><span class="num" id="d-s"></span><span class="lbl">SEC</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="tabs" id="tabs">
+            <span class="tab-active" id="tab-active"></span>
+            <span class="tab">Presto</span><span class="tab">Anime</span><span class="tab">Film</span><span class="tab">Concerti</span><span class="tab">Sport</span>
+          </div>
+          <div class="list-mask"><div class="list" id="list"></div></div>
+        </div>
+      </div>
+      <div class="float-chip" id="chip-events"><b>200+</b> eventi in arrivo</div>
+      <div class="float-chip" id="chip-tz"><svg><use href="#i-globe"/></svg> Orari nel tuo fuso</div>
+    </section>
+
+    <!-- 3 · VALORE -->
+    <section class="scene" id="value">
+      <div class="persp">
+        <div class="modal" id="modal">
+          <p class="m-eyebrow">NUOVO COUNTDOWN</p>
+          <h3>Cosa stai aspettando?</h3>
+          <div class="stepper"><span class="on">1</span><i></i><span id="st2">2</span><i></i><span id="st3">3</span></div>
+          <p class="m-label">Nome</p>
+          <div class="input" id="input"><span id="typed"></span><span class="caret" id="caret"></span></div>
+          <p class="m-label">Quando</p>
+          <div class="qchips"><span class="qchip">Domani</span><span class="qchip">Tra una settimana</span><span class="qchip" id="q-100">Tra 100 giorni</span></div>
+          <p class="m-label">Copertina</p>
+          <div class="covers"><span class="cv art-ocean" id="cv-ocean"></span><span class="cv art-sunrise"></span><span class="cv art-eclipse"></span><span class="cv art-nebula"></span><span class="cv art-confetti"></span></div>
+          <div class="m-btn" id="m-btn">Crea countdown</div>
+        </div>
+        <div class="created" id="created">
+          <div class="created-art art-ocean"></div>
+          <div class="created-body">
+            <p class="cat"><svg><use href="#i-plane"/></svg> Viaggi</p>
+            <h3>Viaggio a Lisbona</h3>
+            <div class="ft small">
+              <div class="ft-days"><span class="num">100</span><span class="lbl">GIORNI</span></div>
+              <div class="ft-rest">
+                <div><span class="num">00</span><span class="lbl">ORE</span></div>
+                <div><span class="num">00</span><span class="lbl">MIN</span></div>
+                <div><span class="num" id="c-s">00</span><span class="lbl">SEC</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sheet" id="sheet">
+          <div class="qr" id="qr"></div>
+          <div class="sheet-actions">
+            <span class="sa primary"><svg><use href="#i-link"/></svg> Copia link</span>
+            <span class="sa"><svg><use href="#i-download"/></svg> Scarica immagine</span>
+            <span class="sa"><svg><use href="#i-cal"/></svg> Calendario</span>
+          </div>
+        </div>
+      </div>
+      <div class="toast" id="toast"><svg><use href="#i-check"/></svg> Link copiato</div>
+      <div class="float-chip" id="chip-noacc"><svg><use href="#i-user-off"/></svg> Nessun account</div>
+      <div class="float-chip" id="chip-local"><svg><use href="#i-lock"/></svg> Tutto nel tuo browser</div>
+    </section>
+
+    <!-- 4 · CTA -->
+    <section class="scene" id="cta">
+      <div class="cta-center">
+        <div class="cta-logo" id="cta-logo"><svg class="logo" viewBox="0 0 40 40"><circle class="lg-track" cx="20" cy="20" r="15.5"/><circle class="lg-sweep" cx="20" cy="20" r="15.5"/><g class="lg-sat"><circle cx="20" cy="4.5" r="2.25"/></g><path class="lg-hand" d="M20 20V10.5"/><path class="lg-min" d="M20 20l6 3.5"/><circle class="lg-hub" cx="20" cy="20" r="2.2"/></svg></div>
+        <p class="cta-the" id="cta-the">THE</p>
+        <p class="cta-name" id="cta-name">COUNTDOWN</p>
+      </div>
+      <p class="cta-tag" id="cta-tag"></p>
+      <div class="cta-btn" id="cta-btn"><span id="cta-label"></span><i class="shine" id="cta-shine"></i></div>
+      <p class="cta-sub" id="cta-sub"></p>
+      <p class="cta-url" id="cta-url"></p>
+    </section>
+
+    <div class="shutter" id="shutter"><i id="shutter-line"></i></div>
+    <div class="subs" id="subs"><span id="subs-text"></span></div>
+  </div>
+
+  <script src="../../js/vendor/qrcode.js"></script>
+  <script src="scene.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+THE COUNTDOWN · Spot 9:16 · Report loudness
+Generato: 2026-10-12T18:23:28.258Z
+
+Obiettivo: -14 LUFS integrati, true peak massimo -1 dBTP (target interno -1.5 dBTP)
+
+Prima della normalizzazione (mix grezzo):
+  Loudness integrata: -16.54 LUFS
+  True peak:          -3.19 dBTP
+  Loudness range:     2.00 LU
+
+Master finale (misura loudnorm):
+  Loudness integrata: -14.02 LUFS
+  True peak:          -1.50 dBTP
+  Loudness range:     1.50 LU
+
+Master finale (verifica indipendente EBU R128, ebur128 con true peak):
+  Loudness integrata: -13.9 LUFS
+  True peak:          -1.5 dBTP
+  Loudness range:     1.7 LU
+
+Esito: CONFORME (tolleranza ±0,5 LU sulla loudness integrata)
+
+Catena: 4 stem musicali → bus musica → sidechain compressor (chiave: voce, soglia 0,03, rapporto 6:1, attacco 15 ms, rilascio 350 ms)
+        + voce + effetti → loudnorm a due passaggi (lineare) → 48 kHz / 24 bit → AAC 320 kb/s nel video

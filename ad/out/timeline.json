@@ -1,0 +1,436 @@
+{
+  "product": {
+    "name": "The Countdown",
+    "tagline": "Il conto alla rovescia delle tue cose preferite.",
+    "description": "Raccoglie le date di film, serie, anime, giochi, concerti e sport con timer al secondo, e ti fa creare e condividere i tuoi countdown. Gratis, senza account: tutto resta nel browser.",
+    "target": "Appassionati di cinema, serie, anime, gaming, musica e sport (18-34)",
+    "tone": "Dark cinematico, accento rosso eclissi",
+    "cta": "Crea il tuo countdown",
+    "ctaSub": "Gratis · Nessun account · Nel tuo browser",
+    "url": ""
+  },
+  "format": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 60,
+    "subframes": 8,
+    "shutterDegrees": 180,
+    "duration": 18
+  },
+  "safeZone": {
+    "top": 120,
+    "bottom": 340
+  },
+  "music": {
+    "bpm": 120,
+    "key": "A minor",
+    "progression": [
+      "Am",
+      "F",
+      "C",
+      "G"
+    ]
+  },
+  "segments": [
+    {
+      "id": "hook",
+      "label": "HOOK",
+      "start": 0,
+      "end": 3
+    },
+    {
+      "id": "showcase",
+      "label": "SHOWCASE / DEMO",
+      "start": 3,
+      "end": 10
+    },
+    {
+      "id": "value",
+      "label": "AGITAZIONE / VALORE",
+      "start": 10,
+      "end": 15
+    },
+    {
+      "id": "cta",
+      "label": "CALL TO ACTION",
+      "start": 15,
+      "end": 18
+    }
+  ],
+  "voiceover": [
+    {
+      "id": "vo1",
+      "segment": "hook",
+      "start": 0.35,
+      "slotEnd": 2.8,
+      "text": "Quanto manca a quello che aspetti?",
+      "duration": 1.921,
+      "speechRate": 0
+    },
+    {
+      "id": "vo2",
+      "segment": "showcase",
+      "start": 3.3,
+      "slotEnd": 9.7,
+      "text": "Film, serie, anime, giochi, concerti e sport. Ogni data, con il suo timer al secondo.",
+      "duration": 6.334,
+      "speechRate": 2
+    },
+    {
+      "id": "vo3",
+      "segment": "value",
+      "start": 10.3,
+      "slotEnd": 14.7,
+      "text": "Crea il tuo countdown in pochi tocchi, e condividilo con un link.",
+      "duration": 3.914,
+      "speechRate": 0
+    },
+    {
+      "id": "vo4",
+      "segment": "cta",
+      "start": 15.25,
+      "slotEnd": 17.95,
+      "text": "The Countdown. Gratis, senza account.",
+      "duration": 2.65,
+      "speechRate": 3
+    }
+  ],
+  "markers": [
+    {
+      "t": 0.15,
+      "id": "hook-line-1"
+    },
+    {
+      "t": 0.45,
+      "id": "hook-line-2"
+    },
+    {
+      "t": 1,
+      "id": "pill-film"
+    },
+    {
+      "t": 1.3,
+      "id": "pill-concerto"
+    },
+    {
+      "t": 1.6,
+      "id": "pill-partita"
+    },
+    {
+      "t": 2.8,
+      "id": "shutter-1"
+    },
+    {
+      "t": 3,
+      "id": "panel-in"
+    },
+    {
+      "t": 4.2,
+      "id": "card-1"
+    },
+    {
+      "t": 4.5,
+      "id": "card-2"
+    },
+    {
+      "t": 4.8,
+      "id": "card-3"
+    },
+    {
+      "t": 5.1,
+      "id": "card-4"
+    },
+    {
+      "t": 5.4,
+      "id": "card-5"
+    },
+    {
+      "t": 6.5,
+      "id": "chip-events"
+    },
+    {
+      "t": 7,
+      "id": "chip-timezone"
+    },
+    {
+      "t": 8.2,
+      "id": "tab-1"
+    },
+    {
+      "t": 8.7,
+      "id": "tab-2"
+    },
+    {
+      "t": 9.2,
+      "id": "tab-3"
+    },
+    {
+      "t": 9.8,
+      "id": "panel-out"
+    },
+    {
+      "t": 10.1,
+      "id": "modal-in"
+    },
+    {
+      "t": 10.35,
+      "id": "typing-start"
+    },
+    {
+      "t": 11.45,
+      "id": "typing-end"
+    },
+    {
+      "t": 11.8,
+      "id": "pick-date"
+    },
+    {
+      "t": 12.35,
+      "id": "pick-cover"
+    },
+    {
+      "t": 12.95,
+      "id": "press-create"
+    },
+    {
+      "t": 13.15,
+      "id": "card-created"
+    },
+    {
+      "t": 13.9,
+      "id": "share-in"
+    },
+    {
+      "t": 14.5,
+      "id": "toast-copied"
+    },
+    {
+      "t": 14.8,
+      "id": "shutter-2"
+    },
+    {
+      "t": 15.05,
+      "id": "cta-impact"
+    },
+    {
+      "t": 15.6,
+      "id": "logo-in"
+    },
+    {
+      "t": 16.6,
+      "id": "cta-pulse"
+    },
+    {
+      "t": 17,
+      "id": "final-hit"
+    }
+  ],
+  "sfx": [
+    {
+      "t": 0,
+      "type": "riser",
+      "dur": 2.8,
+      "gain": 0.35
+    },
+    {
+      "t": 0.15,
+      "type": "impactSoft",
+      "gain": 0.5
+    },
+    {
+      "t": 0.45,
+      "type": "impactSoft",
+      "gain": 0.6
+    },
+    {
+      "t": 1,
+      "type": "pop",
+      "gain": 0.45
+    },
+    {
+      "t": 1.3,
+      "type": "pop",
+      "gain": 0.45
+    },
+    {
+      "t": 1.6,
+      "type": "pop",
+      "gain": 0.45
+    },
+    {
+      "t": 2.75,
+      "type": "whoosh",
+      "dur": 0.5,
+      "gain": 0.7
+    },
+    {
+      "t": 3,
+      "type": "impact",
+      "gain": 0.8
+    },
+    {
+      "t": 4,
+      "type": "tick",
+      "gain": 0.3
+    },
+    {
+      "t": 4.2,
+      "type": "swish",
+      "gain": 0.4
+    },
+    {
+      "t": 4.5,
+      "type": "swish",
+      "gain": 0.4
+    },
+    {
+      "t": 4.8,
+      "type": "swish",
+      "gain": 0.4
+    },
+    {
+      "t": 5.1,
+      "type": "swish",
+      "gain": 0.4
+    },
+    {
+      "t": 5.4,
+      "type": "swish",
+      "gain": 0.4
+    },
+    {
+      "t": 6,
+      "type": "tick",
+      "gain": 0.3
+    },
+    {
+      "t": 6.5,
+      "type": "pop",
+      "gain": 0.55
+    },
+    {
+      "t": 7,
+      "type": "pop",
+      "gain": 0.55
+    },
+    {
+      "t": 8,
+      "type": "tick",
+      "gain": 0.3
+    },
+    {
+      "t": 8.2,
+      "type": "click",
+      "gain": 0.5
+    },
+    {
+      "t": 8.7,
+      "type": "click",
+      "gain": 0.5
+    },
+    {
+      "t": 9.2,
+      "type": "click",
+      "gain": 0.5
+    },
+    {
+      "t": 9.75,
+      "type": "whoosh",
+      "dur": 0.45,
+      "gain": 0.6
+    },
+    {
+      "t": 10.4,
+      "type": "key",
+      "gain": 0.35
+    },
+    {
+      "t": 10.6,
+      "type": "key",
+      "gain": 0.35
+    },
+    {
+      "t": 10.8,
+      "type": "key",
+      "gain": 0.35
+    },
+    {
+      "t": 11,
+      "type": "key",
+      "gain": 0.35
+    },
+    {
+      "t": 11.2,
+      "type": "key",
+      "gain": 0.35
+    },
+    {
+      "t": 11.4,
+      "type": "key",
+      "gain": 0.35
+    },
+    {
+      "t": 11.8,
+      "type": "click",
+      "gain": 0.55
+    },
+    {
+      "t": 12.35,
+      "type": "click",
+      "gain": 0.55
+    },
+    {
+      "t": 12.95,
+      "type": "press",
+      "gain": 0.6
+    },
+    {
+      "t": 13.15,
+      "type": "chime",
+      "gain": 0.5
+    },
+    {
+      "t": 13.9,
+      "type": "swish",
+      "gain": 0.5
+    },
+    {
+      "t": 14.5,
+      "type": "pop",
+      "gain": 0.5
+    },
+    {
+      "t": 14,
+      "type": "riser",
+      "dur": 1,
+      "gain": 0.4
+    },
+    {
+      "t": 14.8,
+      "type": "whoosh",
+      "dur": 0.5,
+      "gain": 0.7
+    },
+    {
+      "t": 15.05,
+      "type": "impact",
+      "gain": 0.9
+    },
+    {
+      "t": 15.6,
+      "type": "shimmer",
+      "gain": 0.4
+    },
+    {
+      "t": 16.6,
+      "type": "pop",
+      "gain": 0.4
+    },
+    {
+      "t": 17,
+      "type": "impactSoft",
+      "gain": 0.6
+    }
+  ],
+  "generatedAt": "2026-10-12T18:23:28.259Z"
+}

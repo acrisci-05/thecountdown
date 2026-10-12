@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07080c" />
+  <meta name="description" content="Un countdown condiviso con te su The Countdown." />
+  <title>Countdown condiviso · The Countdown</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;500&family=Inter:wght@400;500;600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="js/boot.js"></script>
+</head>
+<body class="cd-page">
+  <div class="cd-scene" aria-hidden="true">
+    <div class="cd-bg" id="cd-bg"></div>
+    <div class="cd-vignette"></div>
+  </div>
+
+  <header class="cd-top">
+    <a class="brand" href="/" aria-label="The Countdown, vai alla home">
+      <span class="brand-mark" aria-hidden="true">
+      <svg class="brand-logo" viewBox="0 0 40 40" focusable="false">
+        <circle class="brand-track" cx="20" cy="20" r="15.5" />
+        <circle class="brand-sweep" cx="20" cy="20" r="15.5" />
+        <g class="brand-satellite"><circle cx="20" cy="4.5" r="2.25" /></g>
+        <path class="brand-hand" d="M20 20V10.5" />
+        <path class="brand-minute" d="M20 20l6 3.5" />
+        <circle class="brand-hub" cx="20" cy="20" r="2.2" />
+      </svg>
+    </span>
+      <span class="brand-name">The Countdown</span>
+    </a>
+    <a class="btn btn-ghost btn-sm" href="/#miei">I miei countdown</a>
+  </header>
+
+  <main class="cd-main" id="cd-main" hidden>
+    <p class="cd-cat" id="cd-cat"></p>
+    <h1 class="cd-title" id="cd-title"></h1>
+
+    <div class="cd-ring" id="cd-ring">
+      <svg viewBox="0 0 400 400" aria-hidden="true">
+        <circle cx="200" cy="200" r="186" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1.5" stroke-dasharray="2 8" />
+        <circle id="cd-progress" cx="200" cy="200" r="186" fill="none" stroke-width="2.5" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 200 200)" />
+        <circle id="cd-dot" cx="200" cy="14" r="6" fill="#fff" />
+      </svg>
+      <div class="frame-timer roll cd-timer" id="cd-timer" role="timer" aria-label="Tempo rimanente">
+        <div class="ft-days"><span class="num" data-u="d" data-pad="2">00</span><span class="lbl">Giorni</span></div>
+        <div class="ft-rest">
+          <div><span class="num" data-u="h">00</span><span class="lbl">Ore</span></div>
+          <div><span class="num" data-u="m">00</span><span class="lbl">Min</span></div>
+          <div><span class="num" data-u="s">00</span><span class="lbl">Sec</span></div>
+        </div>
+      </div>
+      <div class="cd-now" id="cd-now" hidden><b>È il momento.</b><span>Goditelo.</span></div>
+    </div>
+
+    <p class="cd-milestone" id="cd-milestone" hidden></p>
+    <p class="cd-date" id="cd-date"></p>
+    <p class="cd-sub muted" id="cd-sub"></p>
+    <blockquote class="cd-note" id="cd-note" hidden></blockquote>
+
+    <div class="cd-actions">
+      <button class="btn btn-primary" type="button" id="cd-add">Aggiungilo ai miei</button>
+      <button class="btn btn-outline" type="button" id="cd-ics">Aggiungi al calendario</button>
+      <button class="btn btn-outline" type="button" id="cd-display">Schermo intero</button>
+      <button class="btn btn-outline" type="button" id="cd-share">Condividi</button>
+    </div>
+    <p class="cd-foot muted small" id="cd-foot"></p>
+  </main>
+
+  <main class="cd-main cd-error" id="cd-error" hidden>
+    <h1 class="cd-title">Questo link non funziona.</h1>
+    <p class="muted">Potrebbe essere incompleto: chiedi a chi te l’ha mandato di copiarlo di nuovo.</p>
+    <div class="cd-actions"><a class="btn btn-primary" href="/">Vai a The Countdown</a></div>
+  </main>
+
+  <button class="icon-btn cd-exit" type="button" id="cd-exit" aria-label="Esci dallo schermo intero" hidden>✕</button>
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+  <script type="module" src="js/countdown-page.js"></script>
+</body>
+</html>
