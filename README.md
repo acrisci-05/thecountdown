@@ -27,6 +27,15 @@ Il server locale serve i file e fa da ponte verso le fonti di immagini (chiavi i
 Senza una chiave il sito funziona lo stesso: al posto delle foto restano le copertine disegnate.
 Dopo aver modificato `.env`, chiudi e riapri START.bat.
 
+## Pubblicare su Vercel
+
+Il sito è statico; le API (`/api/...`) girano come Vercel Function in `api/router.mjs`, con la stessa logica del server locale (`lib/api.mjs`).
+`vercel.json` instrada `/api/*` verso la funzione e imposta gli header di sicurezza.
+
+Le chiavi **non** stanno nel repository: vanno inserite in Vercel → progetto → *Settings* → *Environment Variables*
+(stessi nomi del file `.env`: `TMDB_API_KEY`, `RAWG_API_KEY`, `UNSPLASH_ACCESS_KEY`, `TICKETMASTER_API_KEY`, `FOOTBALL_DATA_TOKEN`, `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`),
+poi *Redeploy*. Le risposte delle API sono messe in cache dalla CDN di Vercel per 30 minuti – 6 ore.
+
 ## Struttura
 
 - `index.html` — struttura della pagina, icone SVG, finestre (dettaglio, creatore, ricerca…)
@@ -34,6 +43,7 @@ Dopo aver modificato `.env`, chiudi e riapri START.bat.
 - `js/data.js` — **catalogo eventi con date e fonti verificate** (12/10/2026), categorie, copertine, colori
 - `js/app.js` — logica: timer, hero, timeline, i miei countdown, creatore guidato, condivisione, .ics
 - `js/boot.js` — applica tema e colore prima del primo render
+- `lib/api.mjs` — API (immagini, uscite, calendari): usate da `server.mjs` in locale e da `api/router.mjs` su Vercel
 - `_old/` — la versione precedente del sito
 
 ## Condivisione
