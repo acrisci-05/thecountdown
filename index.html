@@ -6,7 +6,33 @@
   <meta name="theme-color" content="#07080c" />
   <meta name="description" content="The Countdown — il conto alla rovescia delle tue cose preferite: film, giochi, musica, sport e i tuoi momenti personali." />
   <title>The Countdown — Track the moments worth waiting for</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="canonical" href="https://thecountdown-smoky.vercel.app/" />
+  <!-- Anteprima dei link (WhatsApp, Telegram, Facebook, X): immagine PNG/JPG con indirizzo assoluto -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="The Countdown" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:url" content="https://thecountdown-smoky.vercel.app/" />
+  <meta property="og:title" content="The Countdown — il conto alla rovescia delle tue cose preferite" />
+  <meta property="og:description" content="Film, serie, anime, giochi, concerti e sport: tutte le date che aspetti con un timer al secondo. Crea e condividi i tuoi countdown, gratis e senza account." />
+  <meta property="og:image" content="https://thecountdown-smoky.vercel.app/assets/og-image.jpg" />
+  <meta property="og:image:secure_url" content="https://thecountdown-smoky.vercel.app/assets/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Logo di The Countdown e il titolo: il conto alla rovescia delle tue cose preferite" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Countdown — il conto alla rovescia delle tue cose preferite" />
+  <meta name="twitter:description" content="Film, serie, anime, giochi, concerti e sport: tutte le date che aspetti con un timer al secondo. Crea e condividi i tuoi countdown, gratis e senza account." />
+  <meta name="twitter:image" content="https://thecountdown-smoky.vercel.app/assets/og-image.jpg" />
+  <!-- Web app installabile -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Countdown" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500&family=Inter:wght@400;500;600&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -57,6 +83,8 @@
       <symbol id="i-plane" viewBox="0 0 24 24"><path d="M10.5 13.5 3 11l1.5-1.5 8 1L17 6a2 2 0 0 1 3 3l-4.5 4.5 1 8L15 23l-2.5-7.5-3.5 3.5v2.5L7.5 23l-1-4-4-1L4 16.5h2.5l4-3Z"/></symbol>
       <symbol id="i-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/></symbol>
       <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z"/></symbol>
+      <symbol id="i-install" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M12 7.5v7M9 11.5l3 3 3-3M10.5 18.5h3"/></symbol>
+      <symbol id="i-ios-share" viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></symbol>
       <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
     </defs>
   </svg>
@@ -67,15 +95,12 @@
     <div class="wrap nav-inner">
       <a class="brand" href="#top" aria-label="The Countdown, torna all’inizio">
         <span class="brand-mark" aria-hidden="true">
-          <svg class="brand-logo" viewBox="0 0 40 40" focusable="false">
-            <circle class="brand-track" cx="20" cy="20" r="15.5" />
-            <circle class="brand-sweep" cx="20" cy="20" r="15.5" />
-            <g class="brand-satellite">
-              <circle cx="20" cy="4.5" r="2.25" />
-            </g>
-            <path class="brand-hand" d="M20 20V10.5" />
-            <path class="brand-minute" d="M20 20l6 3.5" />
-            <circle class="brand-hub" cx="20" cy="20" r="2.2" />
+          <svg class="brand-logo" viewBox="0 0 48 48" focusable="false">
+            <circle class="lg-wave" cx="24" cy="24" r="17" />
+            <circle class="lg-track" cx="24" cy="24" r="17" />
+            <circle class="lg-arc" cx="24" cy="24" r="17" pathLength="100" transform="rotate(-90 24 24)" />
+            <rect class="lg-zero" x="22.4" y="2.6" width="3.2" height="7" rx="1.6" />
+            <circle class="lg-core" cx="24" cy="24" r="4.6" />
           </svg>
         </span>
         <span class="brand-name">The Countdown</span>
@@ -102,6 +127,7 @@
             <label class="switch-row"><input type="checkbox" id="pref-motion" /><span class="switch" aria-hidden="true"></span><span>Riduci animazioni</span></label>
           </div>
         </div>
+        <button class="icon-btn install-btn" id="install-btn" type="button" aria-label="Aggiungi alla schermata Home" title="Aggiungi alla schermata Home" hidden><svg><use href="#i-install"/></svg></button>
         <button class="btn btn-primary btn-sm nav-create" type="button" data-create><svg><use href="#i-plus"/></svg><span>Crea countdown</span></button>
       </div>
     </div>
@@ -370,6 +396,11 @@
           <p class="eyebrow">Il progetto</p>
           <h2 class="h2" id="project-title">Fatto a mano, un countdown alla volta.</h2>
           <p class="muted">The Countdown è un progetto indipendente. Non chiede account, non mostra pubblicità e tiene i tuoi countdown solo in questo browser. Le date pubbliche arrivano da fonti aperte, citate in ogni scheda.</p>
+          <button class="install-card" id="install-card" type="button" hidden>
+            <span class="install-icon" aria-hidden="true"><img src="/assets/icon-192.png" alt="" width="48" height="48" /></span>
+            <span><b>Aggiungi alla schermata Home</b><small>Si apre come un’app, a schermo intero, anche offline.</small></span>
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+          </button>
           <ul class="project-facts">
             <li><svg><use href="#i-check"/></svg> Nessun account e nessuno strumento di analisi</li>
             <li><svg><use href="#i-check"/></svg> I tuoi dati restano nel browser: esportali quando vuoi</li>
@@ -414,15 +445,12 @@
     <div class="wrap footer-grid">
       <div>
         <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">
-          <svg class="brand-logo" viewBox="0 0 40 40" focusable="false">
-            <circle class="brand-track" cx="20" cy="20" r="15.5" />
-            <circle class="brand-sweep" cx="20" cy="20" r="15.5" />
-            <g class="brand-satellite">
-              <circle cx="20" cy="4.5" r="2.25" />
-            </g>
-            <path class="brand-hand" d="M20 20V10.5" />
-            <path class="brand-minute" d="M20 20l6 3.5" />
-            <circle class="brand-hub" cx="20" cy="20" r="2.2" />
+          <svg class="brand-logo" viewBox="0 0 48 48" focusable="false">
+            <circle class="lg-wave" cx="24" cy="24" r="17" />
+            <circle class="lg-track" cx="24" cy="24" r="17" />
+            <circle class="lg-arc" cx="24" cy="24" r="17" pathLength="100" transform="rotate(-90 24 24)" />
+            <rect class="lg-zero" x="22.4" y="2.6" width="3.2" height="7" rx="1.6" />
+            <circle class="lg-core" cx="24" cy="24" r="4.6" />
           </svg>
         </span><span class="brand-name">The Countdown</span></a>
         <p class="muted small">Track the moments worth waiting for.</p>
@@ -550,6 +578,14 @@
         <p class="share-privacy muted small"><svg><use href="#i-pin"/></svg> Il link contiene titolo, data e copertina. È codificato, non cifrato: chi lo riceve può leggerlo. Le immagini caricate da te non vengono incluse. Chi lo aggiunge ne salva una copia indipendente: se poi cambi la data, condividi un nuovo link.</p>
       </div>
     </div>
+  </dialog>
+
+  <!-- INSTALLA (iPhone/iPad: Safari non ha un pulsante automatico) -->
+  <dialog class="modal modal-confirm modal-install" id="install-help" aria-labelledby="install-title">
+    <div class="modal-head"><h2 class="h3" id="install-title">Aggiungi alla schermata Home</h2><button class="icon-btn" type="button" data-close aria-label="Chiudi"><svg><use href="#i-x"/></svg></button></div>
+    <div class="install-preview"><img src="/assets/icon-192.png" alt="" width="64" height="64" /><span>Countdown</span></div>
+    <ol class="install-steps" id="install-steps"></ol>
+    <p class="muted small">Poi The Countdown si apre come un’app, a schermo intero, e funziona anche senza connessione.</p>
   </dialog>
 
   <!-- IMPORTA -->

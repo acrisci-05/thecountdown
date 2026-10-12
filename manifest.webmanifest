@@ -1,0 +1,22 @@
+{
+  "name": "The Countdown",
+  "short_name": "Countdown",
+  "description": "Il conto alla rovescia delle tue cose preferite: film, serie, anime, giochi, concerti, sport e i tuoi momenti.",
+  "lang": "it",
+  "id": "/",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07080c",
+  "theme_color": "#07080c",
+  "categories": ["entertainment", "lifestyle", "productivity"],
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Nuovo countdown", "url": "/?source=app#miei", "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

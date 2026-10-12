@@ -131,20 +131,19 @@ kbd { font: 500 11px/1 var(--font-body); padding: 4px 6px; border: 1px solid var
 .nav.is-solid { background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(18px) saturate(1.4); border-color: var(--line); }
 .nav-inner { display: flex; align-items: center; gap: 24px; height: 72px; }
 .brand { display: inline-flex; align-items: center; gap: 12px; }
-.brand-mark { position: relative; width: 30px; height: 30px; display: grid; place-items: center; flex: none; }
-.brand-mark::before { content: ''; position: absolute; inset: 2px; border: 1px solid color-mix(in srgb, var(--accent) 48%, transparent); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 13%, transparent), transparent 72%); box-shadow: 0 0 20px -7px color-mix(in srgb, var(--accent) 88%, transparent); transition: transform .35s var(--ease), box-shadow .35s; }
-.brand-logo { position: relative; z-index: 1; width: 100%; height: 100%; overflow: visible; }
-.brand-track, .brand-sweep { fill: none; }
-.brand-track { stroke: color-mix(in srgb, var(--ink-2) 28%, transparent); stroke-width: 1.25; }
-.brand-sweep { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 24 74; stroke-linecap: round; transform-box: view-box; transform-origin: 20px 20px; animation: brand-orbit 12s linear infinite; filter: drop-shadow(0 0 2px color-mix(in srgb, var(--accent) 85%, transparent)); }
-.brand-satellite { fill: #fff; transform-box: view-box; transform-origin: 20px 20px; animation: brand-orbit 7s linear infinite reverse; filter: drop-shadow(0 0 3px #fff); }
-.brand-hand { fill: none; stroke: var(--ink); stroke-width: 1.5; opacity: .76; }
-.brand-minute { fill: none; stroke: var(--accent); stroke-width: 1.5; transform-box: view-box; transform-origin: 20px 20px; animation: brand-tick 60s steps(60, end) infinite; }
-.brand-hub { fill: var(--accent); stroke: var(--bg); stroke-width: .8; }
-.brand:hover .brand-mark::before { transform: scale(1.12); box-shadow: 0 0 25px -5px color-mix(in srgb, var(--accent) 95%, transparent); }
-.brand:hover .brand-satellite { animation-duration: 3.5s; }
-@keyframes brand-orbit { to { transform: rotate(360deg); } }
-@keyframes brand-tick { to { transform: rotate(360deg); } }
+.brand-mark { position: relative; width: 32px; height: 32px; display: grid; place-items: center; flex: none; }
+.brand-logo { width: 100%; height: 100%; overflow: visible; }
+/* Logo "T-0": l’anello si svuota verso lo zero, il nucleo si accende, l’onda si espande, poi riparte (8 s). */
+.lg-track, .lg-arc, .lg-wave { fill: none; }
+.lg-track { stroke: color-mix(in srgb, var(--ink-2) 22%, transparent); stroke-width: 3.2; }
+.lg-arc { stroke: var(--accent); stroke-width: 3.8; stroke-linecap: round; stroke-dasharray: 75 100; filter: drop-shadow(0 0 3px color-mix(in srgb, var(--accent) 80%, transparent)); animation: lg-count 8s cubic-bezier(.45, 0, .55, 1) infinite; }
+.lg-zero { fill: #fff; filter: drop-shadow(0 0 3px rgba(255,255,255,.9)); }
+.lg-core { fill: var(--accent); transform-box: fill-box; transform-origin: center; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent) 90%, transparent)); animation: lg-core 8s ease-in-out infinite; }
+.lg-wave { stroke: var(--accent); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; animation: lg-wave 8s ease-out infinite; }
+@keyframes lg-count { 0% { stroke-dasharray: 75 100; } 84% { stroke-dasharray: 1.5 100; } 87%, 92% { stroke-dasharray: 0 100; } 100% { stroke-dasharray: 75 100; } }
+@keyframes lg-core { 0%, 85% { transform: scale(1); fill: var(--accent); } 88% { transform: scale(1.55); fill: #fff; } 96%, 100% { transform: scale(1); fill: var(--accent); } }
+@keyframes lg-wave { 0%, 86% { opacity: 0; transform: scale(.85); } 88% { opacity: .9; } 100% { opacity: 0; transform: scale(1.5); } }
+.brand:hover .lg-arc, .brand:hover .lg-core, .brand:hover .lg-wave { animation-duration: 3s; }
 .brand-name { font: 600 13px/1 var(--font-display); letter-spacing: .3em; text-transform: uppercase; }
 .nav-links { display: flex; gap: 6px; margin: 0 auto; }
 .nav-links a { position: relative; font-size: 13px; color: var(--ink-2); padding: 8px 14px; border-radius: 999px; transition: color .2s, background .2s; display: inline-flex; align-items: center; gap: 8px; }
@@ -1136,3 +1135,27 @@ kbd { font: 500 11px/1 var(--font-body); padding: 4px 6px; border: 1px solid var
 .poster.is-skel .poster-img, .poster.is-skel h4, .poster.is-skel p { background: linear-gradient(110deg, var(--line) 30%, var(--line-2) 50%, var(--line) 70%) 0 0 / 220% 100%; animation: skel 1.2s linear infinite; border-radius: 8px; color: transparent; }
 .poster.is-skel h4 { width: 80%; }
 .poster.is-skel p { width: 55%; height: 12px; margin-top: 6px; }
+
+/* ==========================================================================
+   Web app: installazione
+   ========================================================================== */
+.install-btn { color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); }
+.install-btn:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.install-card { display: flex; align-items: center; gap: 14px; width: 100%; max-width: 460px; margin: 0 0 22px; padding: 12px 16px 12px 12px; border-radius: var(--r); border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line-2)); background: color-mix(in srgb, var(--accent) 7%, var(--panel)); text-align: left; transition: border-color .2s, transform .2s var(--ease); }
+.install-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.install-card img { width: 48px; height: 48px; border-radius: 12px; display: block; }
+.install-card b { display: block; font-weight: 600; font-size: 14px; }
+.install-card small { color: var(--muted); font-size: 12px; }
+.install-card > svg { margin-left: auto; color: var(--accent); font-size: 18px; }
+.modal-install { width: min(420px, calc(100vw - 24px)); }
+.install-preview { display: grid; justify-items: center; gap: 8px; margin: 4px 0 18px; font-size: 13px; color: var(--ink-2); }
+.install-preview img { border-radius: 16px; box-shadow: 0 12px 30px -12px rgba(0,0,0,.8); }
+.install-steps { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 12px; font-size: 15px; }
+.install-steps li { display: flex; align-items: flex-start; gap: 12px; }
+.install-steps p { margin: 2px 0 0; line-height: 1.5; }
+.install-steps li > span { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; flex: none; }
+.install-steps svg { font-size: 20px; color: var(--accent); vertical-align: -4px; }
+/* Aperto come app: niente barra degli indirizzi, rispettiamo la tacca dello schermo */
+@media (display-mode: standalone) {
+  .nav { padding-top: env(safe-area-inset-top); }
+}

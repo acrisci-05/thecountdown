@@ -46,6 +46,16 @@ poi *Redeploy*. Le risposte delle API sono messe in cache dalla CDN di Vercel pe
 - `lib/api.mjs` — API (immagini, uscite, calendari): usate da `server.mjs` in locale e da `api/router.mjs` su Vercel
 - `_old/` — la versione precedente del sito
 
+## Web app e anteprima dei link
+
+- **Installabile**: `manifest.webmanifest` + `sw.js` (service worker “prima la rete”, copia offline delle pagine).
+  Il pulsante “Aggiungi alla schermata Home” compare nel menu e nella sezione “Il progetto” quando il browser lo permette;
+  su iPhone/iPad mostra i passaggi di Safari (Condividi → Aggiungi alla schermata Home).
+- **Anteprima su WhatsApp/Telegram/social**: meta tag Open Graph in `index.html` e `countdown.html` con `assets/og-image.jpg` (1200×630).
+  Usano l’indirizzo `https://thecountdown-smoky.vercel.app`: se cambi dominio, aggiornalo in quei meta tag.
+- **Logo e icone**: il logo “T-0” (anello che si svuota verso lo zero) è animato in CSS nel sito.
+  Icone PNG, favicon e immagine di anteprima si rigenerano con `node tools/brand-assets.mjs` (usa Playwright della cartella `ad/`).
+
 ## Condivisione
 
 Ogni countdown si condivide da **Condividi**: link, invio, immagine scaricabile (storia 9:16, post 1:1, anteprima 1.91:1), file calendario, QR code e schermo intero.

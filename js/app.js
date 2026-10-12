@@ -1144,6 +1144,38 @@ async function importData(file) {
   };
 }
 
+/* ---------- Web app: "Aggiungi alla schermata Home" ---------- */
+// Chrome/Edge/Android offrono un prompt (beforeinstallprompt); Safari su iPhone no: lì mostriamo i passaggi.
+let installPrompt = null;
+const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function updateInstallUI() {
+  const can = !isStandalone() && Boolean(installPrompt || isIOS());
+  $('#install-btn').hidden = !can;
+  $('#install-card').hidden = !can;
+}
+async function installApp() {
+  if (installPrompt) {
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    installPrompt = null;
+    updateInstallUI();
+    if (outcome === 'accepted') toast('The Countdown è nella tua schermata Home.');
+    return;
+  }
+  $('#install-steps').innerHTML = `<li><span>1</span><p>Tocca ${icon('ios-share')} <b>Condividi</b> nella barra del browser.</p></li><li><span>2</span><p>Scorri e scegli <b>Aggiungi alla schermata Home</b>.</p></li><li><span>3</span><p>Conferma con <b>Aggiungi</b>.</p></li>`;
+  $('#install-help').showModal();
+}
+function initInstall() {
+  addEventListener('beforeinstallprompt', e => { e.preventDefault(); installPrompt = e; updateInstallUI(); });
+  addEventListener('appinstalled', () => { installPrompt = null; updateInstallUI(); toast('App installata: la trovi nella schermata Home.'); });
+  $('#install-btn').addEventListener('click', installApp);
+  $('#install-card').addEventListener('click', installApp);
+  updateInstallUI();
+  const secure = location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname);
+  if ('serviceWorker' in navigator && secure) navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
+
 /* ---------- Il progetto / Creatore (valori in data.js: i campi vuoti non si mostrano) ---------- */
 const httpsUrl = v => { try { const u = new URL(v); return u.protocol === 'https:' ? u.href : ''; } catch { return ''; } };
 function renderProject() {
@@ -1670,6 +1702,7 @@ applyPrefs();
 buildStars();
 initCreator();
 renderProject();
+initInstall();
 bind();
 bindShare();
 consumeHash();

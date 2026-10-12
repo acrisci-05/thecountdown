@@ -160,3 +160,6 @@ if (!c) {
   document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement) setDisplay(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setDisplay(false); });
 }
+
+// Stesso service worker della home: la pagina condivisa si apre anche offline una volta visitata.
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname))) navigator.serviceWorker.register('/sw.js').catch(() => {});

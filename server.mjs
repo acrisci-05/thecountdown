@@ -5,8 +5,8 @@ import { extname, join, normalize, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
-const allowedPath = /^(index\.html|countdown\.html|js\/vendor\/[\w.-]+\.js|styles\.css|js\/[\w-]+\.js|assets\/[\w.-]+\.(svg|png|jpe?g|webp|avif))$/;
-const contentTypes = { '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.svg':'image/svg+xml', '.png':'image/png', '.jpg':'image/jpeg', '.jpeg':'image/jpeg', '.webp':'image/webp', '.avif':'image/avif' };
+const allowedPath = /^(index\.html|countdown\.html|sw\.js|manifest\.webmanifest|js\/vendor\/[\w.-]+\.js|styles\.css|js\/[\w-]+\.js|assets\/[\w.-]+\.(svg|png|jpe?g|webp|avif))$/;
+const contentTypes = { '.html':'text/html; charset=utf-8', '.css':'text/css; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.svg':'image/svg+xml', '.png':'image/png', '.jpg':'image/jpeg', '.jpeg':'image/jpeg', '.webp':'image/webp', '.avif':'image/avif', '.webmanifest':'application/manifest+json' };
 // Chiavi API dal file .env (mai mandate alla pagina): caricate in process.env prima di importare le API.
 try {
   const envText = await readFile(join(root, '.env'), 'utf8');
