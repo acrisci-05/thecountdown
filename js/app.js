@@ -1491,7 +1491,6 @@ async function loadArt() {
       const hit = list.find(r => safeImage(r.image) && (!dated || !r.year || Math.abs(r.year - year) <= 1));
       if (!hit) return;
       artMap.set(e.id, { image: hit.image, thumb: safeImage(hit.thumb), credit: safeCredit({ ...hit.credit }) });
-      if (hit.id) trackArt({ id: hit.id });
     } catch {}
   }));
   if (artMap.size) renderAll();
