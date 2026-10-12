@@ -52,7 +52,7 @@ poi *Redeploy*. Le risposte delle API sono messe in cache dalla CDN di Vercel pe
   Il pulsante “Aggiungi alla schermata Home” compare nel menu e nella sezione “Il progetto” quando il browser lo permette;
   su iPhone/iPad mostra i passaggi di Safari (Condividi → Aggiungi alla schermata Home).
 - **Anteprima su WhatsApp/Telegram/social**: meta tag Open Graph in `index.html` e `countdown.html` con `assets/og-image.jpg` (1200×630).
-  Usano l’indirizzo `https://thecountdown-smoky.vercel.app`: se cambi dominio, aggiornalo in quei meta tag.
+  Usano l’indirizzo `https://thecountdown-red.vercel.app`: se cambi dominio, aggiornalo in quei meta tag.
 - **Logo e icone**: il logo “T-0” (anello che si svuota verso lo zero) è animato in CSS nel sito.
   Icone PNG, favicon e immagine di anteprima si rigenerano con `node tools/brand-assets.mjs` (usa Playwright della cartella `ad/`).
 
