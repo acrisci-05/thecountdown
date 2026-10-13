@@ -1159,3 +1159,33 @@ kbd { font: 500 11px/1 var(--font-body); padding: 4px 6px; border: 1px solid var
 @media (display-mode: standalone) {
   .nav { padding-top: env(safe-area-inset-top); }
 }
+
+/* ==========================================================================
+   Ultimo minuto e momento zero
+   ========================================================================== */
+/* Ultimo minuto: il timer si accende di rosso */
+.is-final .num { color: #ff4d55; text-shadow: 0 0 24px rgba(255,59,71,.7); transition: color .4s, text-shadow .4s; }
+.is-final .lbl { color: #ff6a72; }
+.frame-timer.is-final .ft-days .num, .cd-timer.is-final .ft-days .num { color: #fff; text-shadow: 0 0 30px #ff3b47, 0 0 70px rgba(255,59,71,.8); }
+.frame-timer.is-final .ft-rest, .cd-timer.is-final .ft-rest { opacity: .45; }
+.feature:has(.is-final) .feature-kicker::after { content: ' · ultimo minuto'; color: #ff6a72; }
+.hero:has(.frame-timer.is-final) .scene-vignette { box-shadow: inset 0 0 160px rgba(255,59,71,.35); }
+/* Ultimi 10 secondi: la cifra dei secondi batte */
+.num.beat { animation: beat .6s cubic-bezier(.2, .9, .2, 1); }
+@keyframes beat { 0% { transform: scale(1.32); filter: brightness(1.6); } 100% { transform: scale(1); filter: none; } }
+.is-last10 { animation: lastGlow 1s ease-in-out infinite; }
+@keyframes lastGlow { 50% { filter: drop-shadow(0 0 18px rgba(255,59,71,.75)); } }
+
+/* Schermo intero: "È il momento" al posto del timer */
+.focus-now { display: block; font: 600 clamp(54px, 11vw, 150px)/1 var(--font-display); letter-spacing: -.02em; color: #fff; text-shadow: 0 0 40px var(--accent), 0 0 120px var(--accent); margin: 2vh 0; animation: nowIn .9s cubic-bezier(.2, .9, .2, 1); }
+.focus.is-now .timer-focus { display: none; }
+.focus.is-now::after { background: radial-gradient(circle at center, color-mix(in srgb, var(--accent) 35%, transparent), rgba(5,6,8,.9) 70%); transition: background 1s; }
+@keyframes nowIn { from { opacity: 0; transform: scale(.7); filter: blur(10px); } }
+
+/* Schermata "È il momento": onda di luce come il nucleo del logo */
+.celebrate-wave { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; }
+.celebrate-wave i { position: absolute; left: 0; top: 0; width: 240px; height: 240px; margin: -120px 0 0 -120px; border-radius: 50%; border: 3px solid var(--accent); opacity: 0; box-shadow: 0 0 40px var(--accent); }
+.celebrate.is-burst .celebrate-wave i { animation: wave 1.6s cubic-bezier(.2, .8, .2, 1) forwards; }
+.celebrate.is-burst .celebrate-wave i + i { animation-delay: .25s; }
+@keyframes wave { 0% { opacity: .95; transform: scale(.2); } 100% { opacity: 0; transform: scale(6); } }
+.celebrate.is-burst .celebrate-card { animation: nowIn .8s cubic-bezier(.2, .9, .2, 1); }

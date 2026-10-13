@@ -77,7 +77,13 @@ export function decodeShare(code) {
 export const shareUrl = code => `${location.origin}/countdown.html#c=${code}`;
 
 /* ---------- Calendario (.ics) ---------- */
-export function downloadIcs({ id, title, target, precision, tz, repeat, description }) {
+// alarms: promemoria che il calendario del telefono mostrerà anche a sito chiuso ('1d', '1h', '0').
+const ICS_ALARMS = {
+  time: { '1d': ['-P1D', 'Domani'], '1h': ['-PT1H', 'Tra un’ora'], '0': ['PT0S', 'È il momento'] },
+  // Eventi "tutto il giorno": l’inizio è la mezzanotte, quindi avvisi a orari sensati.
+  day: { '1d': ['-PT15H', 'Domani'], '1h': ['PT9H', 'Oggi'], '0': ['PT9H', 'Oggi'] },
+};
+export function downloadIcs({ id, title, target, precision, tz, repeat, description, alarms = ['1d', '1h'] }) {
   const stamp = ms => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
   const icsEsc = s => String(s || '').replace(/[\\;,]/g, m => '\\' + m).replace(/\n/g, '\\n');
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//The Countdown//IT', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', `UID:${id || target}@the-countdown`, `DTSTAMP:${stamp(Date.now())}`];
@@ -88,7 +94,15 @@ export function downloadIcs({ id, title, target, precision, tz, repeat, descript
   } else lines.push(`DTSTART:${stamp(target)}`, `DTEND:${stamp(target + HOUR)}`);
   if (repeat === 'yearly') lines.push('RRULE:FREQ=YEARLY');
   if (repeat === 'monthly') lines.push('RRULE:FREQ=MONTHLY');
-  lines.push(`SUMMARY:${icsEsc(title)}`, `DESCRIPTION:${icsEsc(description)}`, 'END:VEVENT', 'END:VCALENDAR');
+  lines.push(`SUMMARY:${icsEsc(title)}`, `DESCRIPTION:${icsEsc(description)}`);
+  const table = ICS_ALARMS[precision === 'day' ? 'day' : 'time'], seen = new Set();
+  for (const code of alarms) {
+    const [trigger, label] = table[code] || [];
+    if (!trigger || seen.has(trigger)) continue;
+    seen.add(trigger);
+    lines.push('BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc(label + ': ' + title)}`, `TRIGGER:${trigger}`, 'END:VALARM');
+  }
+  lines.push('END:VEVENT', 'END:VCALENDAR');
   saveBlob(new Blob([lines.join('\r\n')], { type: 'text/calendar' }), slug(title) + '.ics');
 }
 export const slug = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').toLowerCase() || 'countdown';
@@ -209,4 +223,34 @@ export async function renderCard(canvas, data, format = 'story') {
   ctx.beginPath(); ctx.roundRect(m, catY - 30 * unit, lw, 44 * unit, 22 * unit); ctx.fill();
   ctx.fillStyle = '#fff'; ctx.fillText(label, m + 18, catY);
   return canvas;
+}
+
+/* ---------- Coriandoli per il momento zero ---------- */
+// Leggeri (canvas, ~3 secondi) e mai con "riduci animazioni".
+export function confetti({ colors = ['#ff3b47', '#ffb3a8', '#ffffff', '#f3c969', '#36c5f0', '#9b6bff'], count = 160, z = 200 } = {}) {
+  if (document.documentElement.classList.contains('reduce-motion') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = document.createElement('canvas');
+  c.setAttribute('aria-hidden', 'true');
+  c.style.cssText = `position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:${z}`;
+  document.body.append(c);
+  const dpr = Math.min(2, devicePixelRatio || 1), W = innerWidth, H = innerHeight;
+  c.width = W * dpr; c.height = H * dpr;
+  const ctx = c.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const parts = Array.from({ length: count }, (_, i) => {
+    const side = i % 2 ? 1 : -1, a = (-90 + side * (20 + Math.random() * 45)) * Math.PI / 180, v = 9 + Math.random() * 10;
+    return { x: W / 2 + side * W * .18, y: H * .62, vx: Math.cos(a) * v, vy: Math.sin(a) * v, r: Math.random() * Math.PI, vr: (Math.random() - .5) * .3, w: 6 + Math.random() * 6, h: 3 + Math.random() * 5, c: colors[i % colors.length] };
+  });
+  const start = performance.now();
+  const frame = now => {
+    const t = (now - start) / 1000;
+    ctx.clearRect(0, 0, W, H);
+    for (const p of parts) {
+      p.vy += .32; p.vx *= .99; p.vy *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.globalAlpha = Math.max(0, 1 - Math.max(0, t - 2.2)); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+      ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+    }
+    if (t < 3.3) requestAnimationFrame(frame); else c.remove();
+  };
+  requestAnimationFrame(frame);
 }

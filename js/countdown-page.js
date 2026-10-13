@@ -1,6 +1,6 @@
 // Pagina dedicata a un countdown condiviso (countdown.html#c=…).
 import { CATEGORIES } from './data.js';
-import { decodeShare, zonedToUtc, wallParts, parts, fmtDate, downloadIcs, USER_TZ, DAY } from './share.js';
+import { decodeShare, zonedToUtc, wallParts, parts, fmtDate, downloadIcs, confetti, USER_TZ, DAY } from './share.js';
 
 const $ = s => document.querySelector(s);
 const reduced = () => document.documentElement.classList.contains('reduce-motion') || matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -111,7 +111,17 @@ if (!c) {
   function tick(animate = true) {
     const left = target - Date.now();
     const p = parts(left);
-    for (const n of timer.querySelectorAll('.num')) setNum(n, String(p[n.dataset.u]).padStart(n.dataset.u === 'd' && p.d > 99 ? 3 : 2, '0'), animate);
+    // Ultimo minuto: timer rosso, il numero grande mostra i secondi; negli ultimi 10 la cifra batte.
+    const final = left > 0 && left <= 60000, last = final && left <= 10000;
+    timer.classList.toggle('is-final', final);
+    timer.classList.toggle('is-last10', last);
+    const big = timer.querySelector('.ft-days .num');
+    if (big.dataset.u !== (final ? 's' : 'd')) { big.dataset.u = final ? 's' : 'd'; delete big.dataset.v; timer.querySelector('.ft-days .lbl').textContent = final ? 'Secondi' : 'Giorni'; }
+    for (const n of timer.querySelectorAll('.num')) {
+      const before = n.dataset.v;
+      setNum(n, String(p[n.dataset.u]).padStart(n.dataset.u === 'd' && p.d > 99 ? 3 : 2, '0'), animate);
+      if (last && n.dataset.u === 's' && before !== n.dataset.v && !reduced()) { n.classList.remove('beat'); void n.offsetWidth; n.classList.add('beat'); }
+    }
     if (shownProgress >= progress() - .02) drawRing(progress());
     // Momenti speciali: l’ultima settimana e l’arrivo.
     const ms = $('#cd-milestone');
@@ -125,6 +135,7 @@ if (!c) {
       $('#cd-now').hidden = false;
       ms.hidden = true;
       root.classList.add('cd-arrived');
+      if (left > -5000) confetti(); // solo se l’arrivo avviene con la pagina aperta
     }
     setTimeout(tick, 1000 - (Date.now() % 1000) + 5);
   }

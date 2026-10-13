@@ -56,6 +56,15 @@ poi *Redeploy*. Le risposte delle API sono messe in cache dalla CDN di Vercel pe
 - **Logo e icone**: il logo “T-0” (anello che si svuota verso lo zero) è animato in CSS nel sito.
   Icone PNG, favicon e immagine di anteprima si rigenerano con `node tools/brand-assets.mjs` (usa Playwright della cartella `ad/`).
 
+## Quando il tempo sta per scadere
+
+- **Ultima settimana / ultimo giorno**: etichette “Imminente” e “Oggi”.
+- **Ultimo minuto**: il timer diventa rosso, la hero mostra quel countdown in primo piano e il numero grande passa ai secondi.
+- **Ultimi 10 secondi**: la cifra dei secondi “batte”; con “Suono a zero” attivo anche un tic e una vibrazione (sul telefono).
+- **A zero**: schermata “È il momento” con onda di luce e coriandoli (anche in schermo intero e nella pagina condivisa). Con “Riduci animazioni” niente coriandoli né battiti.
+- **Promemoria a sito chiuso**: il file `.ics` contiene gli avvisi (1 giorno e 1 ora prima, o quelli scelti nel countdown);
+  aggiunto al calendario del telefono, avvisa anche quando il sito non è aperto. Le notifiche del browser funzionano solo con il sito aperto.
+
 ## Condivisione
 
 Ogni countdown si condivide da **Condividi**: link, invio, immagine scaricabile (storia 9:16, post 1:1, anteprima 1.91:1), file calendario, QR code e schermo intero.

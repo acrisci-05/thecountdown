@@ -1,5 +1,5 @@
 import { CATEGORIES, COVERS, ACCENTS, CURATED, TEMPLATES, CREATOR } from './data.js';
-import { encodeShare, shareUrl as sharePageUrl, renderCard, qrSvg, saveBlob, slug, CARD_FORMATS } from './share.js';
+import { encodeShare, shareUrl as sharePageUrl, renderCard, qrSvg, saveBlob, slug, CARD_FORMATS, downloadIcs as icsFile, confetti } from './share.js';
 
 /* ==========================================================================
    Utilità
@@ -368,13 +368,15 @@ function cardHTML(item, { mode = 'explore', i = 0, feature = false } = {}) {
    Hero
    ========================================================================== */
 function buildSlides() {
-  const pinned = mine.map(vmMine).filter(i => i.pinned && isFuture(i)).sort((a, b) => a.target - b.target);
+  const now = Date.now();
+  const urgent = mineItems().filter(i => i.target - now > 0 && i.target - now <= FINAL).sort((a, b) => a.target - b.target);
+  const pinned = urgent.concat(mine.map(vmMine).filter(i => i.pinned && isFuture(i) && !urgent.some(u => u.id === i.id)).sort((a, b) => a.target - b.target));
   const future = curatedItems().filter(isFuture).sort((a, b) => a.target - b.target);
   const featured = future.filter(e => e.featured);
   const list = [...pinned, ...featured];
   for (const e of future) { if (list.length >= 4) break; if (!list.includes(e)) list.push(e); }
   const fallback = mine.map(vmMine).filter(isFuture).sort((a, b) => a.target - b.target);
-  slides = (list.length ? list : fallback).slice(0, 4).map(i => i.id);
+  slides = [...new Set((list.length ? list : fallback).map(i => i.id))].slice(0, 4);
   if (slideIdx >= slides.length) slideIdx = 0;
 }
 function renderPager() {
@@ -738,11 +740,47 @@ function setNum(n, value, animate) {
     d.classList.remove('roll-in'); void d.offsetWidth; d.classList.add('roll-in');
   });
 }
+const FINAL = 60 * 1000, LAST = 10 * 1000;
 function tickTimer(node, animate = true) {
   const target = Number(node.dataset.target);
-  const p = parts(target - Date.now());
-  for (const n of node.querySelectorAll('.num')) setNum(n, String(p[n.dataset.u]).padStart(Number(n.dataset.pad) || 2, '0'), animate);
-  return target - Date.now();
+  const rem = target - Date.now();
+  const p = parts(rem);
+  // Ultimo minuto: il timer diventa rosso; nel timer della hero il numero grande passa ai secondi.
+  const final = target > 0 && rem > 0 && rem <= FINAL, last = final && rem <= LAST;
+  node.classList.toggle('is-final', final);
+  node.classList.toggle('is-last10', last);
+  const big = node.querySelector('.ft-days .num');
+  if (big) {
+    big.dataset.padDays ||= big.dataset.pad || '3';
+    const want = final ? 's' : 'd';
+    if (big.dataset.u !== want) {
+      big.dataset.u = want;
+      big.dataset.pad = final ? '2' : big.dataset.padDays;
+      delete big.dataset.v;
+      node.querySelector('.ft-days .lbl').textContent = final ? 'Secondi' : 'Giorni';
+    }
+  }
+  for (const n of node.querySelectorAll('.num')) {
+    const before = n.dataset.v;
+    setNum(n, String(p[n.dataset.u]).padStart(Number(n.dataset.pad) || 2, '0'), animate);
+    // Ultimi 10 secondi: la cifra dei secondi "batte" a ogni cambio
+    if (last && n.dataset.u === 's' && before !== n.dataset.v && !reducedMotion()) { n.classList.remove('beat'); void n.offsetWidth; n.classList.add('beat'); }
+  }
+  return rem;
+}
+// Tic sonoro e vibrazione negli ultimi 10 secondi, solo per i countdown con "Suono a zero" attivo.
+function finalTick(item, rem) {
+  if (!item.sound || document.hidden) return;
+  try {
+    const ctx = finalTick.ctx ||= new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.value = rem <= 3000 ? 1320 : 990;
+    g.gain.setValueAtTime(.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.06, ctx.currentTime + .005);
+    g.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime + .09);
+    o.connect(g); g.connect(ctx.destination); o.start(); o.stop(ctx.currentTime + .1);
+  } catch {}
+  try { navigator.vibrate?.(rem <= 3000 ? 60 : 25); } catch {}
 }
 let needsRefresh = false;
 function tick() {
@@ -761,6 +799,7 @@ function tick() {
     for (const [code, thr, label] of [['1d', DAY, 'Manca un giorno'], ['1h', HOUR, 'Manca un’ora']]) {
       if (item.reminders?.includes(code) && prev > thr && rem <= thr) systemNotify(`${label}: ${item.title}`, fmtDate(item.target, { tz: USER_TZ, precision: item.precision === 'day' ? 'day' : 'time' }), item.id);
     }
+    if (rem > 0 && rem <= LAST + 500 && Math.floor(prev / 1000) !== Math.floor(rem / 1000)) finalTick(item, rem);
     if (prev > 0 && rem <= 0) {
       if (item.sound) chime();
       if (item.reminders?.includes('0')) systemNotify(`È il momento: ${item.title}`, 'Il countdown è arrivato a zero.', item.id);
@@ -769,8 +808,11 @@ function tick() {
   }
   if (focusId) {
     const item = getItem(focusId);
-    if (item && item.target - now <= 0 && !$('#focus').dataset.done) { $('#focus').dataset.done = '1'; }
+    if (item && item.target - now <= 0 && !$('#focus').dataset.done) { $('#focus').dataset.done = '1'; focusArrived(item); }
   }
+  // Un tuo countdown nell'ultimo minuto passa in primo piano nella hero.
+  const urgent = mineItems().filter(i => i.target - now > 0 && i.target - now <= FINAL).sort((a, b) => a.target - b.target)[0];
+  if (urgent && slides[0] !== urgent.id) { buildSlides(); showSlide(0); }
   if (needsRefresh) { needsRefresh = false; renderAll(); }
   // L'orbita avanza davvero, un passo al secondo.
   const current = slides.length && getItem(slides[slideIdx]);
@@ -800,9 +842,18 @@ function chime() {
   } catch {}
 }
 function celebrate(item) {
+  if (focusId === item.id) return; // lo schermo intero ha già il suo "È il momento"
   $('#celebrate-text').textContent = `${item.title} è arrivato. Goditelo.`;
-  $('#celebrate').hidden = false;
+  const box = $('#celebrate');
+  box.hidden = false;
+  box.classList.remove('is-burst'); void box.offsetWidth; box.classList.add('is-burst');
+  confetti();
   $('#celebrate-close').focus();
+}
+function focusArrived(item) {
+  $('#focus').classList.add('is-now');
+  $('#focus-now').hidden = false;
+  confetti({ z: 160 });
 }
 
 /* ==========================================================================
@@ -1043,30 +1094,16 @@ function adoptShared() {
 }
 
 /* ---------- Calendario (.ics) ---------- */
+// File calendario con promemoria: il telefono avvisa anche quando il sito è chiuso.
 function downloadIcs(id) {
   const item = getItem(id);
   if (!item) return;
-  const stamp = ms => new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-  const icsEsc = s => String(s || '').replace(/[\\;,]/g, m => '\\' + m).replace(/\n/g, '\\n');
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//The Countdown//IT', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
-    `UID:${item.id}@the-countdown`, `DTSTAMP:${stamp(Date.now())}`];
-  if (item.precision === 'day') {
-    const { day } = wallParts(item.target, item.tz);
-    const next = new Date(Date.parse(day + 'T00:00:00Z') + DAY).toISOString().slice(0, 10);
-    lines.push(`DTSTART;VALUE=DATE:${day.replace(/-/g, '')}`, `DTEND;VALUE=DATE:${next.replace(/-/g, '')}`);
-  } else {
-    lines.push(`DTSTART:${stamp(item.target)}`, `DTEND:${stamp(item.target + HOUR)}`);
-  }
-  if (item.repeat === 'yearly') lines.push('RRULE:FREQ=YEARLY');
-  if (item.repeat === 'monthly') lines.push('RRULE:FREQ=MONTHLY');
-  lines.push(`SUMMARY:${icsEsc(item.title)}`, `DESCRIPTION:${icsEsc((item.personalNote || item.tagline || item.sub || '') + (item.source ? '\nFonte: ' + item.source.url : ''))}`, 'END:VEVENT', 'END:VCALENDAR');
-  const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = item.title.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').toLowerCase() + '.ics';
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-  toast('File calendario scaricato.');
+  const alarms = item.kind === 'custom' && item.reminders?.length ? item.reminders : ['1d', '1h'];
+  icsFile({
+    id: item.id, title: item.title, target: item.target, precision: item.precision, tz: item.tz, repeat: item.repeat, alarms,
+    description: (item.personalNote || item.tagline || item.sub || '') + (item.source ? '\nFonte: ' + item.source.url : ''),
+  });
+  toast('File calendario scaricato: il telefono ti avviserà anche a sito chiuso.');
 }
 
 /* ---------- Focus ---------- */
@@ -1076,6 +1113,8 @@ function openFocus(id) {
   focusId = id;
   const f = $('#focus');
   delete f.dataset.done;
+  f.classList.remove('is-now');
+  $('#focus-now').hidden = true;
   $('#focus-bg').innerHTML = mediaHTML(item);
   $('#focus-bg').style.setProperty('--c', catOf(item).color);
   $('#focus-cat').textContent = catOf(item).label;
