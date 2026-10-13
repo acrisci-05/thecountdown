@@ -26,7 +26,7 @@ function securityHeaders(res) {
   res.setHeader('Referrer-Policy','strict-origin-when-cross-origin');
   res.setHeader('X-Frame-Options','DENY');
   res.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=()');
-  res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://image.tmdb.org https://www.themoviedb.org https://media.rawg.io https://api.rawg.io https://cdn-images.dzcdn.net https://e-cdns-images.dzcdn.net https://images.unsplash.com https://static.tvmaze.com https://images.igdb.com https://s1.ticketm.net https://thespacedevs-prod.nyc3.digitaloceanspaces.com https://s4.anilist.co; connect-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'");
+  res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://image.tmdb.org https://www.themoviedb.org https://media.rawg.io https://api.rawg.io https://cdn-images.dzcdn.net https://e-cdns-images.dzcdn.net https://images.unsplash.com https://static.tvmaze.com https://images.igdb.com https://s1.ticketm.net https://thespacedevs-prod.nyc3.digitaloceanspaces.com https://s4.anilist.co https://i.ytimg.com; connect-src 'self'; frame-src https://www.youtube-nocookie.com; base-uri 'none'; object-src 'none'; frame-ancestors 'none'");
 }
 const server = createServer(async (req,res) => {
   securityHeaders(res);

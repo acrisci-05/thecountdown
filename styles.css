@@ -1189,3 +1189,32 @@ kbd { font: 500 11px/1 var(--font-body); padding: 4px 6px; border: 1px solid var
 .celebrate.is-burst .celebrate-wave i + i { animation-delay: .25s; }
 @keyframes wave { 0% { opacity: .95; transform: scale(.2); } 100% { opacity: 0; transform: scale(6); } }
 .celebrate.is-burst .celebrate-card { animation: nowIn .8s cubic-bezier(.2, .9, .2, 1); }
+
+/* ==========================================================================
+   Scheda: meteo, trailer, dove guardarlo
+   ========================================================================== */
+.detail-extra { display: grid; gap: 12px; margin-bottom: 18px; }
+.detail-extra:empty { display: none; }
+.extra-skel { height: 64px; border-radius: var(--r); background: linear-gradient(110deg, var(--line) 30%, var(--line-2) 50%, var(--line) 70%) 0 0 / 220% 100%; animation: skel 1.2s linear infinite; }
+.extra-weather { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--r); border: 1px solid var(--line); background: var(--bg-2); }
+.wx-emoji { font-size: 30px; line-height: 1; }
+.extra-weather b { display: block; font-weight: 500; font-size: 15px; }
+.extra-weather small { color: var(--muted); font-size: 12px; }
+.extra-src { margin-left: auto; font-size: 11px; color: var(--muted); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+.extra-trailer { position: relative; aspect-ratio: 16 / 9; border-radius: var(--r); overflow: hidden; background: #000; border: 1px solid var(--line); }
+.extra-trailer iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.trailer-btn { position: absolute; inset: 0; width: 100%; display: grid; place-items: center; color: #fff; }
+.trailer-btn img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.7); transition: filter .3s, transform .6s var(--ease); }
+.trailer-btn:hover img { filter: brightness(.85); transform: scale(1.03); }
+.trailer-btn .play { position: relative; width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 25%, transparent), 0 20px 40px -10px rgba(0,0,0,.8); transition: transform .3s var(--ease); }
+.trailer-btn .play svg { width: 30px; height: 30px; margin-left: 4px; }
+.trailer-btn:hover .play { transform: scale(1.08); }
+.trailer-label { position: absolute; left: 14px; bottom: 12px; font: 500 13px/1 var(--font-body); padding: 7px 12px; border-radius: 999px; background: rgba(5,6,9,.65); backdrop-filter: blur(6px); }
+.extra-providers { padding: 14px 16px; border-radius: var(--r); border: 1px solid var(--line); background: var(--bg-2); display: grid; gap: 10px; }
+.extra-title { font: 500 11px/1 var(--font-display); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.prov-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.prov-row > span { width: 92px; font-size: 12px; color: var(--ink-2); }
+.prov-row > div { display: flex; gap: 6px; flex-wrap: wrap; }
+.prov-row img { width: 34px; height: 34px; border-radius: 9px; display: block; }
+.extra-foot { font-size: 11px; color: var(--muted); }
+.extra-foot a { text-decoration: underline; text-underline-offset: 2px; }

@@ -43,6 +43,10 @@ function safeCredit(c) {
   if (!label) return null;
   return { label, url: link(c.url), author: String(c.author || '').slice(0, 60), authorUrl: link(c.authorUrl) };
 }
+function safeGeo(g) {
+  const lat = Number(g?.lat), lon = Number(g?.lon);
+  return Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180 ? { lat, lon, place: String(g.place || '').slice(0, 80) } : undefined;
+}
 function safeSource(src) {
   if (!src || typeof src !== 'object') return null;
   try { const u = new URL(src.url); if (u.protocol !== 'https:') return null; return { label: String(src.label || u.hostname).slice(0, 40), url: u.href }; } catch { return null; }
@@ -170,6 +174,7 @@ function sanitizeMine(m) {
     image: safeImage(m.image),
     poster: safeImage(m.poster),
     credit: safeCredit(m.credit),
+    geo: safeGeo(m.geo),
     reminders: Array.isArray(m.reminders) ? m.reminders.filter(r => ['1d', '1h', '0'].includes(r)) : [],
     sound: Boolean(m.sound),
     pinned: Boolean(m.pinned),
@@ -257,6 +262,7 @@ function vmFeed(f) {
     target: exact ? Date.parse(f.at) : zonedToUtc(y, mo, d, 0, 0, tz),
     note: String(f.note || '').slice(0, 160), source: safeSource(f.source), credit: safeCredit(f.credit),
     status: STATUS[f.status] ? f.status : (exact ? 'confermata' : 'prevista'),
+    geo: safeGeo(f.geo),
     group: f.group === 'episodi' ? 'episodi' : 'nuove',
     platforms: Array.isArray(f.platforms) ? f.platforms.map(String).slice(0, 12) : [],
     saved: mine.some(m => m.feedId === f.id),
@@ -718,7 +724,7 @@ function renderAll(animate = false) {
   renderShelf(animate);
   renderTimeline();
   renderMine(animate);
-  if (openDetailId && $('#detail').open) renderDetail(openDetailId);
+  if (openDetailId && $('#detail').open && renderDetail(openDetailId)) loadExtras(getItem(openDetailId));
 }
 
 /* ==========================================================================
@@ -898,6 +904,7 @@ function renderDetail(id) {
       ${prog != null && !ended ? `<div class="detail-progress"><p><span>Attesa trascorsa</span><span>${Math.round(prog)}%</span></p><div class="progress"><span style="width:${prog.toFixed(1)}%"></span></div></div>` : ''}
       <dl class="detail-facts">${facts.map(([k, v, raw]) => `<div class="fact"><dt>${esc(k)}</dt><dd>${raw ? v : esc(v)}</dd></div>`).join('')}</dl>
       ${item.note ? `<p class="detail-note">${icon('clock')}<span>${esc(item.note)}</span></p>` : ''}
+      <div class="detail-extra" id="detail-extra" aria-live="polite"></div>
       <div class="detail-actions">
         ${primary}
         <button class="btn btn-outline" type="button" data-act="share" data-id="${sid}">${icon('share')} Condividi</button>
@@ -912,10 +919,80 @@ function renderDetail(id) {
 }
 function openDetail(id) {
   if (!renderDetail(id)) return;
+  loadExtras(getItem(id));
   const d = $('#detail');
   if (!d.open) d.showModal();
   $('.detail-close', d).focus();
 }
+
+/* ---------- Extra della scheda: meteo (Open-Meteo), trailer e dove guardarlo (TMDb/JustWatch, IGDB) ---------- */
+const extrasCache = new Map();
+// Solo per eventi pubblici (catalogo e uscite): per i countdown personali non si indovina il titolo.
+function extraQuery(item) {
+  if (item.kind === 'custom') return null;
+  const year = new Date(item.target).getFullYear();
+  const urls = [item.source?.url, item.credit?.url].filter(Boolean).join(' ');
+  let m;
+  if (item.category === 'film') {
+    if ((m = urls.match(/themoviedb\.org\/movie\/(\d+)/))) return { type: 'movie', id: m[1] };
+    return { type: 'movie', q: item.art?.kind === 'movie' ? item.art.q : item.title, year };
+  }
+  if (item.category === 'serie' || item.category === 'anime') {
+    if ((m = urls.match(/themoviedb\.org\/tv\/(\d+)/))) return { type: 'tv', id: m[1] };
+    return { type: 'tv', q: item.title.replace(/ · (Stagione|Ep\.) .*$/, '') };
+  }
+  if (item.category === 'gaming') {
+    if ((m = urls.match(/igdb\.com\/games\/([\w-]+)/))) return { type: 'game', id: m[1], q: item.title, year };
+    return { type: 'game', q: item.art?.kind === 'game' ? item.art.q : item.title, year };
+  }
+  return null;
+}
+function weatherDate(item) {
+  return item.precision === 'day' && item.day ? item.day : new Date(item.target).toISOString().slice(0, 10);
+}
+function cached(key, fn) {
+  if (!extrasCache.has(key)) extrasCache.set(key, fn().catch(() => null));
+  return extrasCache.get(key);
+}
+async function loadExtras(item) {
+  const box = $('#detail-extra');
+  if (!box || !item) return;
+  const eq = extraQuery(item);
+  const days = (item.target - Date.now()) / DAY;
+  const wantWeather = item.geo && days > -1 && days <= 15.5;
+  if (!eq && !wantWeather) { box.innerHTML = ''; return; }
+  box.innerHTML = '<div class="extra-skel"></div>';
+  const [w, x] = await Promise.all([
+    wantWeather ? cached(`w:${item.geo.lat},${item.geo.lon},${weatherDate(item)}`, () => api(`/api/weather?lat=${item.geo.lat}&lon=${item.geo.lon}&date=${weatherDate(item)}`)) : null,
+    eq ? cached('x:' + JSON.stringify(eq), () => api('/api/extra?' + new URLSearchParams(Object.entries(eq).filter(([, v]) => v != null)))) : null,
+  ]);
+  if (openDetailId !== item.id || !$('#detail-extra')) return;
+  let html = '';
+  if (w?.available) {
+    html += `<div class="extra-weather"><span class="wx-emoji" aria-hidden="true">${esc(w.emoji)}</span><div><b>${esc(w.label)} · ${w.tmin}°–${w.tmax}°</b><small>${w.rain != null ? `Pioggia ${w.rain}% · ` : ''}Previsioni per ${esc(item.geo.place || 'il luogo dell’evento')} il ${esc(fmtShort(Date.parse(w.date + 'T12:00:00Z'), 'UTC'))}</small></div><a href="${esc(w.source.url)}" target="_blank" rel="noopener noreferrer" class="extra-src">Open-Meteo</a></div>`;
+  }
+  if (x?.trailer) {
+    html += `<div class="extra-trailer" id="extra-trailer"><button type="button" class="trailer-btn" data-yt="${esc(x.trailer.key)}" aria-label="Guarda il trailer: ${esc(x.trailer.name)}">
+      <img src="https://i.ytimg.com/vi/${esc(x.trailer.key)}/hqdefault.jpg" alt="" loading="lazy" />
+      <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="trailer-label">Guarda il trailer${x.trailer.lang === 'en' ? ' · in inglese' : ''}</span></button></div>`;
+  }
+  const p = x?.providers;
+  if (p && (p.flatrate.length || p.rent.length || p.buy.length)) {
+    const row = (label, list) => list.length ? `<div class="prov-row"><span>${label}</span><div>${list.map(v => `<img src="${esc(v.logo)}" alt="${esc(v.name)}" title="${esc(v.name)}" width="34" height="34" loading="lazy" />`).join('')}</div></div>` : '';
+    html += `<div class="extra-providers"><p class="extra-title">Dove guardarlo in Italia</p>${row('Abbonamento', p.flatrate)}${row('Noleggio', p.rent)}${row('Acquisto', p.buy)}
+      <p class="extra-foot"><a href="${esc(p.link)}" target="_blank" rel="noopener noreferrer">Tutte le offerte</a> · dati <a href="${esc(p.source.url)}" target="_blank" rel="noopener noreferrer">JustWatch</a></p></div>`;
+  }
+  $('#detail-extra').innerHTML = html;
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-yt]');
+  if (!b) return;
+  // Il video si carica solo ora (youtube-nocookie): prima nessuna richiesta a YouTube.
+  const key = b.dataset.yt;
+  if (!/^[\w-]{6,20}$/.test(key)) return;
+  b.parentElement.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${key}?autoplay=1&rel=0" title="Trailer" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+});
 
 /* ==========================================================================
    Azioni
@@ -932,7 +1009,7 @@ function toggleSave(id) {
     if (existing) { mine = mine.filter(m => m !== existing); toast('Rimosso dalla tua lista.'); }
     else {
       const wall = item.precision === 'day' ? { day: item.day, time: '00:00' } : wallParts(item.target, item.tz);
-      mine.push(sanitizeMine({ id: 'feed-' + item.feedId, kind: 'feed', feedId: item.feedId, title: item.title, note: item.sub, category: item.category, day: wall.day, time: wall.time, tz: item.tz, precision: item.precision, credit: item.credit, cover: item.cover, image: item.image, poster: item.poster, source: item.source, feedNote: item.note, createdAt: new Date().toISOString() }));
+      mine.push(sanitizeMine({ id: 'feed-' + item.feedId, kind: 'feed', feedId: item.feedId, title: item.title, note: item.sub, category: item.category, day: wall.day, time: wall.time, tz: item.tz, precision: item.precision, credit: item.credit, cover: item.cover, image: item.image, poster: item.poster, source: item.source, feedNote: item.note, geo: item.geo, createdAt: new Date().toISOString() }));
       toast('Aggiunto alla tua lista.', { label: 'Vedi', fn: () => $('#miei').scrollIntoView() });
     }
     persistMine();

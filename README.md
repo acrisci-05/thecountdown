@@ -23,6 +23,8 @@ Il server locale serve i file e fa da ponte verso le fonti di immagini (chiavi i
 | football-data.org | Serie A e Champions League | `FOOTBALL_DATA_TOKEN` |
 | Jolpica F1 | calendario di Formula 1 | nessuna |
 | Launch Library 2 | lanci spaziali | nessuna |
+| Open-Meteo | meteo previsto nel luogo dell’evento (fino a 16 giorni prima) | nessuna |
+| TMDb + JustWatch, IGDB | trailer e “dove guardarlo in Italia” nella scheda dell’evento | già incluse sopra |
 
 Senza una chiave il sito funziona lo stesso: al posto delle foto restano le copertine disegnate.
 Dopo aver modificato `.env`, chiudi e riapri START.bat.

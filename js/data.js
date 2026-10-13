@@ -45,7 +45,7 @@ export const ACCENTS = [
 
 export const CURATED = [
   {
-    id: 'lucca-2026', art: { kind: 'photo', q: 'cosplay costume' }, category: 'anime', cover: 'sakura', featured: false,
+    id: 'lucca-2026', geo: { lat: 43.8429, lon: 10.5027, place: 'Lucca' }, art: { kind: 'photo', q: 'cosplay costume' }, category: 'anime', cover: 'sakura', featured: false,
     title: 'Lucca Comics & Games 2026',
     tagline: 'Sessant’anni di fumetti, giochi e cosplay.',
     date: '2026-10-28T09:00:00+01:00', tz: 'Europe/Rome', precision: 'approx',
@@ -91,7 +91,7 @@ export const CURATED = [
     note: 'Mezzanotte nel tuo fuso orario.',
   },
   {
-    id: 'super-bowl-lxi', art: { kind: 'photo', q: 'american football stadium night' }, category: 'sport', cover: 'stadium',
+    id: 'super-bowl-lxi', geo: { lat: 33.9535, lon: -118.3392, place: 'SoFi Stadium, Inglewood' }, art: { kind: 'photo', q: 'american football stadium night' }, category: 'sport', cover: 'stadium',
     title: 'Super Bowl LXI',
     tagline: 'SoFi Stadium, Los Angeles.',
     date: '2027-02-14T15:30:00-08:00', tz: 'America/Los_Angeles', precision: 'approx',
@@ -99,7 +99,7 @@ export const CURATED = [
     source: { label: 'CBS Sports', url: 'https://www.cbssports.com/nfl/news/super-bowl-expected-to-return-to-sofi-in-2027-los-angeles-area-to-host-big-game-for-second-time-since-2022/' },
   },
   {
-    id: 'sanremo-2027', art: { kind: 'photo', q: 'music festival stage lights' }, category: 'musica', cover: 'vinyl', featured: true,
+    id: 'sanremo-2027', geo: { lat: 43.8159, lon: 7.7761, place: 'Sanremo' }, art: { kind: 'photo', q: 'music festival stage lights' }, category: 'musica', cover: 'vinyl', featured: true,
     title: 'Festival di Sanremo 2027',
     tagline: 'La 77ª edizione, dal 16 al 20 febbraio.',
     date: '2027-02-16T20:45:00+01:00', tz: 'Europe/Rome', precision: 'approx',
@@ -107,7 +107,7 @@ export const CURATED = [
     source: { label: 'Sorrisi e Canzoni', url: 'https://www.sorrisi.com/musica/sanremo/sanremo-2027-le-date-ufficiali/' },
   },
   {
-    id: 'f1-2027', art: { kind: 'photo', q: 'formula 1 race car' }, category: 'sport', cover: 'circuit',
+    id: 'f1-2027', geo: { lat: 26.0325, lon: 50.5106, place: 'Sakhir, Bahrain' }, art: { kind: 'photo', q: 'formula 1 race car' }, category: 'sport', cover: 'circuit',
     title: 'Formula 1 · GP del Bahrain 2027',
     tagline: 'Si apre la stagione 2027.',
     date: '2027-03-14T00:00:00+03:00', tz: 'Asia/Bahrain', precision: 'day',
@@ -115,7 +115,7 @@ export const CURATED = [
     source: { label: 'Formula1.com', url: 'https://www.formula1.com/en/latest/article/everything-you-need-to-know-about-the-2027-f1-calendar.B8HW7bYE1DhRm4Ib1nlqT' },
   },
   {
-    id: 'ucl-final-2027', art: { kind: 'photo', q: 'football stadium night lights' }, category: 'sport', cover: 'stadium',
+    id: 'ucl-final-2027', geo: { lat: 40.4362, lon: -3.5995, place: 'Madrid' }, art: { kind: 'photo', q: 'football stadium night lights' }, category: 'sport', cover: 'stadium',
     title: 'Finale di Champions League 2027',
     tagline: 'Estadio Metropolitano, Madrid.',
     date: '2027-06-05T21:00:00+02:00', tz: 'Europe/Madrid', precision: 'approx',
